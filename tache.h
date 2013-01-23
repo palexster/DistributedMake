@@ -11,7 +11,8 @@
 # include <string>
 # include <map>
 # include <utility>
-
+# include <deque>
+# include <vector>
 
 class tache {
 public:
@@ -28,8 +29,10 @@ public:
     bool operator ==(const tache other);
     tache& operator =(const tache& cSource);
 protected:
+    static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
     tache();
     std::vector<tache> subTaches; // n° subTaches
+    std::string command;
     int nTaches; // n° subtaches
     std::vector<std::string> dependencies;
     long id;

@@ -9,7 +9,7 @@
 
 using namespace std;
 
-
+std::map<const std::string, tache*> Job::tMap;
 
 Job::Job() {
     
@@ -55,7 +55,7 @@ void Job::createNewJob(std::string name){
     }
     //TachePair pair(this->name,this);
     string toAdd = this->name;
-    tMap.insert(Mappair(this->name,this));
+    addTacheToMap(this);
     this->init = false;
     this->done = false;
     //Read the subtaches
@@ -69,7 +69,7 @@ void Job::createNewJob(std::string name){
         }     
         else {
             getline(myfile,secondLine);
-            
+            createNewTache(line,secondLine);
         }
     }
     
@@ -93,21 +93,8 @@ void Job::createNewJob(std::string name){
        
 }
 
-vector<string> Job::tokenize(const string & str, const string & delim)
-{
-  vector<string> tokens;
-  size_t p0 = 0, p1 = string::npos;
 
-  while(p0 != string::npos)
-  {
-    p1 = str.find_first_of(delim, p0);
-    if(p1 != p0)
-    {
-      string token = str.substr(p0, p1 - p0);
-      tokens.push_back(token);
-    }
-    p0 = str.find_first_not_of(delim, p1);
- }
-return tokens;
+void Job::addTacheToMap(tache* tache){
+    Job::tMap.insert(Mappair(tache->name,tache));
 }
 

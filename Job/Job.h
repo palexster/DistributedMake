@@ -19,13 +19,14 @@
 
 class Job : public tache{
 public:
+    static std::map<const std::string, tache*> tMap;
     Job();
     Job(const Job& orig);
     virtual ~Job();
     void createNewJob(std::string name);
-    static std::map<const std::string, tache*> tMap;
+    static void addTacheToMap(tache* tache);
 private:
-    std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
+    
 //    std::string init;
     std::string finalizeCommand;
     
