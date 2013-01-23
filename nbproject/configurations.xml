@@ -8,6 +8,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>example</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -36,6 +37,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>example.txt</itemPath>
+    <itemPath>exampleMatrix</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

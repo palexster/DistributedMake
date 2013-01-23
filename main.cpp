@@ -14,24 +14,8 @@ int main (int argc, char* argv[]){
     int done;
     string line;
     Job travail;
-    ifstream myfile("example.txt");
-    if (myfile.is_open()) {
-        while (myfile.good()) {  // If a line was successfully read
-        {
-            getline(myfile,line);
-            if(line.length() == 0)  // Skip any blank lines
-                continue;
-            else if(line[0] == '#')  // Skip any comment lines
-                continue;
-                travail.addTache(line);// Got a valid data line so return with this line
-        }
-            getline(myfile, line);
-            
-            cout << line << endl;
-        }
-        myfile.close();
-    }
-    else cout << "Unable to open file";
+    travail.createNewJob(argv[1]);
+//    else cout << "Unable to open file";
 }
 
 vector<string> tokenize(const string & str, const string & delim)
