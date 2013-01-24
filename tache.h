@@ -13,6 +13,13 @@
 # include <utility>
 # include <deque>
 # include <vector>
+# include <iostream>
+# include <vector>
+# include <cstdlib>
+# include <cmath>
+# include <ios>
+# include <fstream>
+# include <ctime>
 
 class tache {
 public:

@@ -15,7 +15,7 @@ using namespace std;
 long tache::tID = 0;
 
 tache::tache() {
-    this->id=getNewId();
+    this->id=0;
 }
 
 tache::tache(const tache& orig) {
@@ -31,18 +31,34 @@ tache::~tache() {
 }
 
 tache* tache::createNewTache(string firstLine,string secondLine){
-    tache toAdd;
-    vector<string> firstTokens = tokenize(firstLine," ");
-    toAdd.id=getNewId();
-    toAdd.name=firstTokens[0];
-    toAdd.name.substr(0,toAdd.name.length()-2);
-    int i=1;
-    int nDep = firstTokens.size();
+    tache* toAdd=new tache;
+    vector<string> firstTokens = tokenize(firstLine,":");
+    toAdd->id=getNewId();
+    vector<string> depTokens; 
+    //vector<string> tokens = tokenize(firstTokens[0],":");
+    //cout << tokens[0] << " \n";
+    toAdd->name=firstTokens[0];
+    //unsigned pos = toAdd->name.find("\t");
+    cout << "tache name: " << toAdd->name << "\n";
+    //toAdd->name=toAdd->name.substr(0,pos);
+    if (firstTokens[1].substr(0).compare("\t")){
+        string toParse = firstTokens[1].substr(1,firstTokens[1].size()-1);
+        depTokens = tokenize(toParse," ");
+    }
+    else {
+        depTokens = tokenize(firstTokens[1]," ");
+    }
+    int i=0;
+    int nDep = depTokens.size();
     while(i<nDep){
-        toAdd.dependencies.push_back(firstTokens[i]);
+        cout << "Dependency: " << depTokens[i] << "\n";
+        toAdd->dependencies.push_back(depTokens[i]);
         i++;
     }
-    toAdd.command=secondLine;
+    vector<string> command = tokenize(secondLine,"\t");
+    cout << "Command: " << command[0] << "\n" ;
+    toAdd->command=command[0];
+    return toAdd;
 }
 
 long  tache::getNewId(){

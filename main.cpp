@@ -13,8 +13,8 @@ using namespace std;
 int main (int argc, char* argv[]){
     int done;
     string line;
-    Job travail;
-    travail.createNewJob(argv[1]);
+    Job* travail=new Job;
+    travail->createNewJob(argv[1]);
 //    else cout << "Unable to open file";
 }
 

@@ -19,7 +19,7 @@
 
 class Job : public tache{
 public:
-    static std::map<const std::string, tache*> tMap;
+    static std::map<const std::string, tache*> *tMap;
     Job();
     Job(const Job& orig);
     virtual ~Job();

@@ -9,10 +9,11 @@
 
 using namespace std;
 
-std::map<const std::string, tache*> Job::tMap;
+std::map<const std::string, tache*> *Job::tMap;
 
 Job::Job() {
-    
+    Job::nTaches = 0;
+    tMap = new std::map<const std::string, tache*>;
 }
 
 Job::Job(const Job& orig) {
@@ -34,20 +35,23 @@ void Job::createNewJob(std::string name){
     // HERE FIRST LINE
     if (myfile.good()){
             getline(myfile,line);
-            vector<string> tokens = tokenize(line," ");
+            vector<string> tokenFirst = tokenize(line," ");
             this->id=Job::getNewId();
-            cout << tokens[0];
-            name = (tokens[0]);
-            this->name = name.substr(name.length()-1);
-            tokens.erase(tokens.begin());
-            dimension = tokens.size();
+            vector<string> tokens = tokenize(tokenFirst[0],":");
+            cout << tokens[0] << " \n";
+            this->name = tokens[0];
+            //this->name = this->name.substr(this->name.length()-2);
+            cout << this->name << "\n";
+            tokenFirst.erase(tokenFirst.begin());
+            dimension = tokenFirst.size();
             while (i != dimension){
-                string dep = tokens[i];
+                string dep = tokenFirst[i];
+                cout << dep << "\n";
                 this->dependencies.push_back(dep);
                 i++;
             }
-            delete(&name);
-            delete(&tokens);
+//            delete(&name);
+//            delete(&tokens);
     }
     // HERE SECOND LINE
         if (myfile.good()){
@@ -69,32 +73,16 @@ void Job::createNewJob(std::string name){
         }     
         else {
             getline(myfile,secondLine);
-            createNewTache(line,secondLine);
-        }
-    }
-    
-    
-    
-    while (myfile.good()) {  // If a line was successfully read
-        {
-            getline(myfile,line);
-            if(line.length() == 0)  // Skip any blank lines
-                continue;
-            else if(line[0] == '#')  // Skip any comment lines
-                continue; // Got a valid data line so return with this line
-            else {
-                
-            }
-            //this->addTache(line);
-            
-            cout << line << endl;
+            tache* toInsert=createNewTache(line,secondLine);
+            Job::addTacheToMap(toInsert);
         }
     }
        
 }
 
 
-void Job::addTacheToMap(tache* tache){
-    Job::tMap.insert(Mappair(tache->name,tache));
+void Job::addTacheToMap(tache* tache1){
+    Job::tMap->insert(Mappair(tache1->name,tache1));
+    cout <<  "add to the map another tache " << tache1->name << "\n";
 }
 
