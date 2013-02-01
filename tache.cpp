@@ -8,7 +8,7 @@
 //#include <ompi/mpi/cxx/constants.h>
 
 #include "tache.h"
-//#define VERBOSE
+#define VERBOSE
 
 using namespace std;
 
