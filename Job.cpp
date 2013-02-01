@@ -74,7 +74,10 @@ void Job::createNewJob(std::string name){
         }
         else if(line[0] == '#'){  // Skip any comment lines
                 continue; 
-        }     
+        }
+        else if(line.compare("clean:") == 0){
+            getline(myfile,this->finalizeCommand);
+        }
         else {
             getline(myfile,secondLine);
             tache* toInsert=createNewTache(line,secondLine);
@@ -83,7 +86,7 @@ void Job::createNewJob(std::string name){
             this->nTaches++;
         }
     }
-    putInWaiting(this);
+    //putInWaiting(this);
 }
 
 
@@ -106,7 +109,7 @@ bool Job::testJobDeps(){
                 
              scheduleNewTache(*iter);
              cout << "Tache ready: " << (*iter)->command << " \n";
-             tWaiting->pop_front();
+             tWaiting->erase(iter);
             }
         }
         iter++;
@@ -116,7 +119,7 @@ bool Job::testJobDeps(){
 
 tache* Job::getNewTache(){
     tache *toReturn;
-    if (tAvailable->front() == NULL ){
+    if (tAvailable->size() == 0 ){
         toReturn = NULL;
     }
     else {
@@ -155,7 +158,7 @@ void Job::putInWaiting(tache* toAdd){
 bool Job::run(){
     int total = 0;
     this->testJobDeps();
-    cout << "To do: " << this->nTaches << " \n";
+    //cout << "To do: " << this->nTaches << " \n";
     while (total < this->nTaches){
         tache* toRun = getNewTache();
         toRun->run();
