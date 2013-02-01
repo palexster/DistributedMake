@@ -16,7 +16,7 @@ int main (int argc, char* argv[]){
     Job* travail=new Job;
     travail->createNewJob(argv[1]);
     // test runnable tache
-    travail->testJobDeps();
+    travail->run();
     
 //    else cout << "Unable to open file";
 }

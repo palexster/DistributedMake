@@ -10,9 +10,11 @@
 using namespace std;
 
 std::map<const std::string, tache*> *Job::tMap;
+std::deque<tache*> *Job::tAvailable;
+std::deque<tache*> *Job::tWaiting;
 
 Job::Job() {
-    Job::nTaches = 0;
+    Job::nTaches = 1;
     tMap = new std::map<const std::string, tache*>;
 }
 
@@ -55,7 +57,9 @@ void Job::createNewJob(std::string name){
     }
     // HERE SECOND LINE
         if (myfile.good()){
-            getline(myfile,this->finalizeCommand);
+            //getline(myfile,this->finalizeCommand);
+            getline(myfile,this->command);
+            cout << this->command;
     }
     //TachePair pair(this->name,this);
     string toAdd = this->name;
@@ -75,9 +79,11 @@ void Job::createNewJob(std::string name){
             getline(myfile,secondLine);
             tache* toInsert=createNewTache(line,secondLine);
             Job::addTacheToMap(toInsert);
+            putInWaiting(toInsert);
+            this->nTaches++;
         }
     }
-       
+    putInWaiting(this);
 }
 
 
@@ -88,14 +94,74 @@ void Job::addTacheToMap(tache* tache1){
 
 bool Job::testJobDeps(){
     bool result;
-    std::map<const std::string, tache*>::iterator iter;
+    std::deque<tache*>::iterator iter;
+    std::deque<tache*>::iterator control;
     std::string* strToReturn = new std::string("");
-    for (iter = tMap->begin(); iter != tMap->end(); iter++){
-        if (iter->second->completed == false){
-            if (iter->second->testTacheDeps()){
-                cout << iter->first;
+    //for (iter = tWaiting->begin(); iter != tWaiting->end(); ++iter){
+    iter = tWaiting->begin();
+    control = tWaiting->end();
+    while (iter != tWaiting->end() ){
+        if ((*iter)->completed == false){
+            if ((*iter)->testTacheDeps()){
+                
+             scheduleNewTache(*iter);
+             cout << "Tache ready: " << (*iter)->command << " \n";
+             tWaiting->pop_front();
             }
         }
+        iter++;
     }
     return true;
+}
+
+tache* Job::getNewTache(){
+    tache *toReturn;
+    if (tAvailable->front() == NULL ){
+        toReturn = NULL;
+    }
+    else {
+        toReturn = tAvailable->front();
+        tAvailable->pop_front();
+    }
+    return toReturn;
+}
+
+void Job::scheduleNewTache(tache* toAdd){
+    if (tAvailable == NULL){
+        tAvailable = new std::deque<tache*>;
+    }
+    tAvailable->push_back(toAdd);
+}
+tache* Job::getWaitingTache(){
+    tache *toReturn;
+    if (tWaiting->front() == NULL ){
+        toReturn = NULL;
+    }
+    else {
+        toReturn = tWaiting->front();
+        tWaiting->pop_front();
+    }
+    return toReturn;
+}
+
+void Job::putInWaiting(tache* toAdd){
+    if (tWaiting == NULL){
+        tWaiting = new std::deque<tache*>;
+    }
+    tWaiting->push_back(toAdd);
+    cout << tWaiting->size() << "\n";
+}
+
+bool Job::run(){
+    int total = 0;
+    this->testJobDeps();
+    cout << "To do: " << this->nTaches << " \n";
+    while (total < this->nTaches){
+        tache* toRun = getNewTache();
+        toRun->run();
+        toRun->completed=true;
+        cout << "Done: " << total+1 << " \n";
+        total++;
+        this->testJobDeps();
+    }
 }

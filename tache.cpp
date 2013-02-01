@@ -8,7 +8,7 @@
 //#include <ompi/mpi/cxx/constants.h>
 
 #include "tache.h"
-
+//#define VERBOSE
 
 using namespace std;
 
@@ -53,7 +53,9 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     int i=0;
     int nDep = depTokens.size();
     while(i<nDep){
+        #ifdef VERBOSE
         cout << "Dependency: " << depTokens[i] << "\n";
+        #endif
         if (depTokens[i] == ""){
             i++;
             continue;
@@ -126,7 +128,10 @@ return tokens;
 
 bool tache::testTacheDeps()
 {
-    cout << "Dimension of the deps " << this->dependencies.size() << "\n";
+    //cout << "Dimension of the deps " << this->dependencies.size() << "\n";
+    if (this->dependencies.size() == 0){
+        return true;
+    }
       for (std::vector<string>::iterator it = this->dependencies.begin() ; it != this->dependencies.end(); ++it){
           string str = *it;      
           if (!this->testSingleDep(str)){
@@ -138,9 +143,12 @@ bool tache::testTacheDeps()
 
 bool tache::testSingleDep(string filename)
 {
-  const char *p;
-  p=filename.c_str();
-  cout << filename << "\n";;
-  ifstream ifile(p);
+  ifstream ifile(filename.c_str());
   return ifile;
+}
+
+bool tache::run(){
+    cout << command << "\n";
+    system(this->command.c_str());
+    return true;
 }

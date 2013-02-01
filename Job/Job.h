@@ -16,6 +16,7 @@
 # include <fstream>
 # include <ctime>
 #include "../tache.h"
+# include <deque>
 
 class Job : public tache{
 public:
@@ -26,12 +27,17 @@ public:
     void createNewJob(std::string name);
     bool testJobDeps();
     static void addTacheToMap(tache* tache);
-
+    static tache* getNewTache();
+    static void scheduleNewTache(tache* toAdd);
+    static tache* getWaitingTache();
+    static void putInWaiting(tache* toAdd);
+    bool run();
 private:
     
 //    std::string init;
     std::string finalizeCommand;
-    
+    static std::deque<tache*> *tAvailable;
+    static std::deque<tache*> *tWaiting;
 };
 
 typedef std::pair<std::string, tache*> Mappair;
