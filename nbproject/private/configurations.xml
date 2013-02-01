@@ -26,7 +26,9 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" ex</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" exampleMatrix</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" exemple</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" example</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" example</runcommand>

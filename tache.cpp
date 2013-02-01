@@ -38,9 +38,11 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     //vector<string> tokens = tokenize(firstTokens[0],":");
     //cout << tokens[0] << " \n";
     toAdd->name=firstTokens[0];
+    toAdd->completed=false;
     //unsigned pos = toAdd->name.find("\t");
     cout << "tache name: " << toAdd->name << "\n";
     //toAdd->name=toAdd->name.substr(0,pos);
+    if (firstTokens.size() > 1){
     if (firstTokens[1].substr(0).compare("\t")){
         string toParse = firstTokens[1].substr(1,firstTokens[1].size()-1);
         depTokens = tokenize(toParse," ");
@@ -52,8 +54,13 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     int nDep = depTokens.size();
     while(i<nDep){
         cout << "Dependency: " << depTokens[i] << "\n";
+        if (depTokens[i] == ""){
+            i++;
+            continue;
+        }
         toAdd->dependencies.push_back(depTokens[i]);
         i++;
+    }
     }
     vector<string> command = tokenize(secondLine,"\t");
     cout << "Command: " << command[0] << "\n" ;
@@ -112,4 +119,28 @@ vector<string> tache::tokenize(const string & str, const string & delim)
     p0 = str.find_first_not_of(delim, p1);
  }
 return tokens;
+}
+
+// the job could be executed
+
+
+bool tache::testTacheDeps()
+{
+    cout << "Dimension of the deps " << this->dependencies.size() << "\n";
+      for (std::vector<string>::iterator it = this->dependencies.begin() ; it != this->dependencies.end(); ++it){
+          string str = *it;      
+          if (!this->testSingleDep(str)){
+                    return false;
+          }
+      }
+    return true;
+};
+
+bool tache::testSingleDep(string filename)
+{
+  const char *p;
+  p=filename.c_str();
+  cout << filename << "\n";;
+  ifstream ifile(p);
+  return ifile;
 }

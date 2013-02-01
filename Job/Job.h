@@ -24,7 +24,9 @@ public:
     Job(const Job& orig);
     virtual ~Job();
     void createNewJob(std::string name);
+    bool testJobDeps();
     static void addTacheToMap(tache* tache);
+
 private:
     
 //    std::string init;

@@ -20,6 +20,7 @@
 # include <ios>
 # include <fstream>
 # include <ctime>
+# include <iostream>
 
 class tache {
 public:
@@ -32,9 +33,12 @@ public:
     std::string name;
     static tache* createNewTache(std::string firstLine,std::string secondLine);
     static long getNewId();
+    bool testTacheDeps();
+    bool testSingleDep(std::string filename);
     bool operator < (const tache other);
     bool operator ==(const tache other);
     tache& operator =(const tache& cSource);
+    bool completed;
 protected:
     static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
     tache();

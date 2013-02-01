@@ -83,6 +83,19 @@ void Job::createNewJob(std::string name){
 
 void Job::addTacheToMap(tache* tache1){
     Job::tMap->insert(Mappair(tache1->name,tache1));
-    cout <<  "add to the map another tache " << tache1->name << "\n";
+    //cout <<  "add to the map another tache " << tache1->name << "\n";
 }
 
+bool Job::testJobDeps(){
+    bool result;
+    std::map<const std::string, tache*>::iterator iter;
+    std::string* strToReturn = new std::string("");
+    for (iter = tMap->begin(); iter != tMap->end(); iter++){
+        if (iter->second->completed == false){
+            if (iter->second->testTacheDeps()){
+                cout << iter->first;
+            }
+        }
+    }
+    return true;
+}
