@@ -58,7 +58,14 @@ void Job::createNewJob(std::string name){
     // HERE SECOND LINE
         if (myfile.good()){
             //getline(myfile,this->finalizeCommand);
-            getline(myfile,this->command);
+            getline(myfile,line);    
+//            if (line.substr(0).compare("\t")){
+//                 this->command=line.substr(1,line.length());
+//                }
+//            else {
+                this->command = line;
+//            }
+            this->completed=false;
             cout << this->command;
     }
     //TachePair pair(this->name,this);
@@ -86,7 +93,7 @@ void Job::createNewJob(std::string name){
             this->nTaches++;
         }
     }
-    //putInWaiting(this);
+    putInWaiting(this);
 }
 
 
@@ -97,22 +104,30 @@ void Job::addTacheToMap(tache* tache1){
 
 bool Job::testJobDeps(){
     bool result;
-    std::deque<tache*>::iterator iter;
-    std::deque<tache*>::iterator control;
-    std::string* strToReturn = new std::string("");
+    long i=0;
     //for (iter = tWaiting->begin(); iter != tWaiting->end(); ++iter){
-    iter = tWaiting->begin();
-    control = tWaiting->end();
-    while (iter != tWaiting->end() ){
-        if ((*iter)->completed == false){
-            if ((*iter)->testTacheDeps()){
-                
-             scheduleNewTache(*iter);
-             cout << "Tache ready: " << (*iter)->command << " \n";
-             tWaiting->erase(iter);
+    //control = tWaiting->end();
+    if (tWaiting->size() == 0){
+        return false;
+    }
+    long size = tWaiting->size();
+    while (i<size){
+        tache *toEvaluate = tWaiting->front();
+        tWaiting->pop_front();
+        if (toEvaluate->completed == false){
+            if (toEvaluate->testTacheDeps()){
+             scheduleNewTache(toEvaluate);
+#ifdef VERBOSE             
+             cout << "Tache id " << toEvaluate->command << " \n";
+             cout << "Tache ready: " << toEvaluate->command << " \n";
+             cout << "Dimension of tWaiting " << tWaiting->size() << " \n";
+#endif             
+            }
+            else {
+                putInWaiting(toEvaluate);
             }
         }
-        iter++;
+        i++;
     }
     return true;
 }
@@ -152,19 +167,28 @@ void Job::putInWaiting(tache* toAdd){
         tWaiting = new std::deque<tache*>;
     }
     tWaiting->push_back(toAdd);
-    cout << tWaiting->size() << "\n";
 }
 
 bool Job::run(){
     int total = 0;
     this->testJobDeps();
-    //cout << "To do: " << this->nTaches << " \n";
-    while (total < this->nTaches){
+#ifdef VERBOSE
+    cout << "To do: " << this->nTaches << " \n";
+#endif    
+    while(total < this->nTaches){
         tache* toRun = getNewTache();
+        
         toRun->run();
         toRun->completed=true;
+#ifdef VERBOSE
         cout << "Done: " << total+1 << " \n";
+#endif
         total++;
         this->testJobDeps();
     }
+}
+
+bool Job::finalize(){
+    system(this->finalizeCommand.c_str());
+    return true;
 }
