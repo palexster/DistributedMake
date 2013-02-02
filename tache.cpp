@@ -8,7 +8,6 @@
 //#include <ompi/mpi/cxx/constants.h>
 
 #include "tache.h"
-#define VERBOSE
 
 using namespace std;
 
@@ -128,7 +127,10 @@ return tokens;
 
 bool tache::testTacheDeps()
 {
-    //cout << "Dimension of the deps " << this->dependencies.size() << "\n";
+#ifdef VERBOSE
+    cout << "Dimension of the deps " << this->dependencies.size() << "\n";
+    cout << "Dimension of the deps " << this->command << "\n";
+#endif
     if (this->dependencies.size() == 0){
         return true;
     }
@@ -148,7 +150,7 @@ bool tache::testSingleDep(string filename)
 }
 
 bool tache::run(){
-    cout << command << "\n";
+    cout << this->command << "\n";
     system(this->command.c_str());
     return true;
 }

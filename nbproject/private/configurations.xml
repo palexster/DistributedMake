@@ -35,7 +35,7 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" Makefile</runcommandpicklistitem>
         </runcommandpicklist>
         <runcommand>"${OUTPUT_PATH}" Makefile</runcommand>
-        <rundir>/home/alex/NetBeansProjects/MPI/makefiles/matrix</rundir>
+        <rundir>/home/alex/NetBeansProjects/MPI/</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>
         <remove-instrumentation>0</remove-instrumentation>

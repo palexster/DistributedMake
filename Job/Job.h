@@ -31,7 +31,9 @@ public:
     static void scheduleNewTache(tache* toAdd);
     static tache* getWaitingTache();
     static void putInWaiting(tache* toAdd);
+    bool finalize();
     bool run();
+    void checkJobs();
 private:
     
 //    std::string init;

@@ -7,6 +7,8 @@
 # include <vector>
 //# include "mpi.h"
 #include "Job/Job.h"
+#define VERBOSE
+
 
 using namespace std;
 
@@ -15,9 +17,10 @@ int main (int argc, char* argv[]){
     string line;
     Job* travail=new Job;
     travail->createNewJob(argv[1]);
+    //travail->checkJobs();
     // test runnable tache
     travail->run();
-    
+    travail->finalize();
 //    else cout << "Unable to open file";
 }
 
