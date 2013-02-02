@@ -32,7 +32,7 @@ public:
     static tache* getWaitingTache();
     static void putInWaiting(tache* toAdd);
     bool finalize();
-    bool run();
+    bool run(const long id, const long p);
     void checkJobs();
 private:
     

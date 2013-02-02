@@ -48,7 +48,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <commandlineTool>g++</commandlineTool>
+          <commandlineTool>mpic++</commandlineTool>
         </ccTool>
         <linkerTool>
           <linkerLibItems>

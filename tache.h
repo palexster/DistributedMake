@@ -8,20 +8,35 @@
 #ifndef TACHE_H
 #define	TACHE_H
 # include <vector>
+# include "mpi.h"
 # include <string>
 # include <map>
 # include <utility>
 # include <deque>
 # include <vector>
-# include <iostream>
 # include <vector>
 # include <cstdlib>
+# include <mpi/mpi.h>
 # include <cmath>
 # include <ios>
 # include <fstream>
 # include <ctime>
 # include <iostream>
+# include <istream>
 # include <deque>
+# include <ostream>
+# include <fstream>
+# include <iostream>
+# include <iterator>
+# include <sstream>
+
+
+#define ID_SEND 0
+#define COMMAND_SEND 1
+#define NDEP_SEND 2
+#define DEP_SEND 3
+#define END 4
+
 
 class tache {
 public:
@@ -36,12 +51,17 @@ public:
     static long getNewId();
     bool testTacheDeps();
     bool run();
-    bool testSingleDep(std::string filename);
+    static bool testSingleDep(std::string filename);
     bool operator < (const tache other);
     bool operator ==(const tache other);
     tache& operator =(const tache& cSource);
+    bool receiveTache(long target_host);
     bool completed;
+    void savefile(char* content,std::string name);
     std::string command;
+    bool sendTache(long toRun);
+    static std::string toString(long i);
+    static std::string convertFile(std::string name);
 protected:
     static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
     tache();

@@ -7,6 +7,9 @@
 
 //#include <ompi/mpi/cxx/constants.h>
 
+
+
+
 #include "tache.h"
 
 using namespace std;
@@ -153,4 +156,110 @@ bool tache::run(){
     cout << this->command << "\n";
     system(this->command.c_str());
     return true;
+}
+
+bool tache::sendTache(long target_host){
+    // Send preliminary informations
+    // send id
+    string buff;
+    int tag = ID_SEND;
+    buff = tache::toString(this->id);
+    MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+    // send command
+    tag = COMMAND_SEND;
+    MPI::COMM_WORLD.Send((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
+    vector<string>::iterator it;
+    for(it = this->dependencies.begin(); it != this->dependencies.end(); it++) {
+        tag = NDEP_SEND;
+        buff = (*it); 
+        MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+        buff = convertFile(*it);
+        tag = DEP_SEND;
+        MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+    }
+
+    
+}
+
+bool tache::receiveTache(long target_host){
+    // Send preliminary informations
+    // send id
+    char *b;
+    int tag;
+    MPI::Status status;
+    int dimension=0;
+    int source = 0;
+    //string buff = tache::toString(this->id);
+    do {
+        MPI::COMM_WORLD.Probe(source,MPI::ANY_TAG,status);
+        dimension = status.Get_count(MPI::CHAR);
+        b[dimension];
+        MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
+        tag = status.Get_tag();
+        string buff(b);
+        switch (tag){
+            case ID_SEND:
+                    this->id=atoi(b);
+                    break;
+            case COMMAND_SEND:        
+                    this->command = buff;
+                    break;
+            case NDEP_SEND:
+//                const string dep = buff
+                this->dependencies.push_back(buff);
+                string namefile(b);
+                MPI::COMM_WORLD.Probe(source,MPI::ANY_TAG,status);
+                dimension = status.Get_count(MPI::CHAR);
+                b[dimension];
+                MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
+                tag = status.Get_tag();
+                savefile(b,namefile);
+                break;
+        }
+    } while (status.Get_tag() != END);
+    // send command
+    tag = COMMAND_SEND;
+    MPI::COMM_WORLD.Recv((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
+    // send dep_n°
+    tag = NDEP_SEND;
+//    buff = tache::toString(this->dependencies.size()); 
+    MPI::COMM_WORLD.Recv((void *)this->dependencies.size(),1,MPI::INT,target_host,tag);
+    vector<string>::iterator it;
+    tag = DEP_SEND;
+    for(it = this->dependencies.begin(); it != this->dependencies.end(); it++) {
+        string buff = convertFile(*it); 
+        MPI::COMM_WORLD.Recv((void *)this->dependencies.size(),1,MPI::INT,target_host,tag);
+    }
+    // filename
+
+    ;
+    
+}
+
+string tache::convertFile(string name){
+        if (!testSingleDep(name)){
+            return NULL;
+        }
+        std::ifstream in_file(name.c_str());
+        std::string the_str(std::istreambuf_iterator<char>( in_file),(std::istreambuf_iterator<char>()));
+        return the_str;
+}
+
+string tache::toString(long i){
+    string buff;
+    ostringstream convert ;   // stream used for the conversion
+    convert << i;      // insert the textual representation of 'Number' in the characters in the stream
+    buff = convert.str();
+}
+
+long tache::getId(){
+    return this->id;
+}
+
+void tache::savefile(char* content, string name){
+    ofstream toSave;
+    toSave.open(name.c_str());
+    toSave << content;
+    toSave.close();
+    return;
 }

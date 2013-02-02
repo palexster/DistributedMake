@@ -5,23 +5,28 @@
 
 # include <fstream>
 # include <vector>
-//# include "mpi.h"
-#include "Job/Job.h"
-#define VERBOSE
+# include <string.h>
+# include "mpi.h"
+# include "Job/Job.h"
+# include "master.h"
 
 
 using namespace std;
 
 int main (int argc, char* argv[]){
-    int done;
-    string line;
-    Job* travail=new Job;
-    travail->createNewJob(argv[1]);
-    //travail->checkJobs();
-    // test runnable tache
-    travail->run();
-    travail->finalize();
-//    else cout << "Unable to open file";
+    MPI::Init ( argc, argv );
+    long id = MPI::COMM_WORLD.Get_rank();
+    long p = MPI::COMM_WORLD.Get_size();
+    // Master
+    if (id == 0 ){
+        master *m = new master;
+        m->mainMaster(argc,argv,id,p);
+    }
+    // esclave
+    else {
+        
+    }
+    MPI::Finalize ( );
 }
 
 vector<string> tokenize(const string & str, const string & delim)

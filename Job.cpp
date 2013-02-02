@@ -169,17 +169,26 @@ void Job::putInWaiting(tache* toAdd){
     tWaiting->push_back(toAdd);
 }
 
-bool Job::run(){
+bool Job::run(const long id, const long p){
     int total = 0;
-    this->testJobDeps();
+    int target_host=id;
 #ifdef VERBOSE
     cout << "To do: " << this->nTaches << " \n";
-#endif    
-    while(total < this->nTaches){
+#endif
+//#ifdef LOCAL    
+//    while(total < this->nTaches){
+//        tache* toRun = getNewTache();
+//        toRun->run();
+//        toRun->completed=true;
+//#endif LOCAL
+//#ifdef MPI
+       while(tAvailable->size() == 0 || total < this->nTaches){
         tache* toRun = getNewTache();
-        
-        toRun->run();
+        target_host= target_host++ % p;
+        cout << "Scheduling " << toRun->getId() << " to machine " << target_host;
+        toRun->sendTache(target_host);
         toRun->completed=true;
+//#endif MPI        
 #ifdef VERBOSE
         cout << "Done: " << total+1 << " \n";
 #endif
@@ -192,3 +201,4 @@ bool Job::finalize(){
     system(this->finalizeCommand.c_str());
     return true;
 }
+
