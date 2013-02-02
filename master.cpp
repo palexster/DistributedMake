@@ -39,5 +39,6 @@ void master::mainMaster(int argc,char **argv, long id, long p){
                 }
                 
         }
+        
     //    else cout << "Unable to open file";
 }

@@ -9,6 +9,7 @@
 # include "mpi.h"
 # include "Job/Job.h"
 # include "master.h"
+# include "slave.h"
 
 
 using namespace std;
@@ -24,7 +25,8 @@ int main (int argc, char* argv[]){
     }
     // esclave
     else {
-        
+        slave *sl = new slave;
+        sl->mainSlave(argc,argv,id,p);
     }
     MPI::Finalize ( );
 }

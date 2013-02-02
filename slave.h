@@ -12,6 +12,7 @@ class slave {
 public:
     slave();
     slave(const slave& orig);
+    void mainSlave(int argc,char*argv[], long id, long p);
     virtual ~slave();
 private:
 

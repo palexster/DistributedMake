@@ -172,6 +172,7 @@ void Job::putInWaiting(tache* toAdd){
 bool Job::run(const long id, const long p){
     int total = 0;
     int target_host=id;
+    MPI::Status status;
 #ifdef VERBOSE
     cout << "To do: " << this->nTaches << " \n";
 #endif
@@ -182,7 +183,8 @@ bool Job::run(const long id, const long p){
 //        toRun->completed=true;
 //#endif LOCAL
 //#ifdef MPI
-       while(tAvailable->size() == 0 || total < this->nTaches){
+    while( total < this->nTaches){
+       while(tAvailable->size() == 0){
         tache* toRun = getNewTache();
         target_host= target_host++ % p;
         cout << "Scheduling " << toRun->getId() << " to machine " << target_host;
@@ -193,6 +195,12 @@ bool Job::run(const long id, const long p){
         cout << "Done: " << total+1 << " \n";
 #endif
         total++;
+       }
+       while (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
+           tache *toReceive;
+           cout << "Received tache from" << status.Get_source();
+           toReceive->receiveTache(0,true);  
+       }
         this->testJobDeps();
     }
 }
