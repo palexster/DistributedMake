@@ -36,7 +36,7 @@
 #define NDEP_SEND 2
 #define DEP_SEND 3
 #define END 4
-
+#define RESULT 5
 
 class tache {
 public:
@@ -55,11 +55,11 @@ public:
     bool operator < (const tache other);
     bool operator ==(const tache other);
     tache& operator =(const tache& cSource);
-    bool receiveTache(long target_host);
+    bool receiveTache(long target_host, bool results);
     bool completed;
     void savefile(char* content,std::string name);
     std::string command;
-    bool sendTache(long toRun);
+    bool sendTache(long toRun, bool results);
     static std::string toString(long i);
     static std::string convertFile(std::string name);
 protected:

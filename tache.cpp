@@ -158,33 +158,38 @@ bool tache::run(){
     return true;
 }
 
-bool tache::sendTache(long target_host){
+bool tache::sendTache(long target_host,bool results){
     // Send preliminary informations
     // send id
     string buff;
-    int tag = ID_SEND;
-    buff = tache::toString(this->id);
-    MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
-    // send command
-    tag = COMMAND_SEND;
-    MPI::COMM_WORLD.Send((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
-    vector<string>::iterator it;
-    for(it = this->dependencies.begin(); it != this->dependencies.end(); it++) {
-        tag = NDEP_SEND;
-        buff = (*it); 
-        MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
-        buff = convertFile(*it);
-        tag = DEP_SEND;
-        MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+    if (results){
+        string result = convertFile(this->name);
+        MPI::COMM_WORLD.Send((void*)result.c_str(),buff.size(),MPI::CHAR,target_host,RESULT);
     }
-
+    else {
+        int tag = ID_SEND;
+        buff = tache::toString(this->id);
+        MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+        // send command
+        tag = COMMAND_SEND;
+        MPI::COMM_WORLD.Send((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
+        vector<string>::iterator it;
+        for(it = this->dependencies.begin(); it != this->dependencies.end(); it++) {
+            tag = NDEP_SEND;
+            buff = (*it); 
+            MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+            buff = convertFile(*it);
+            tag = DEP_SEND;
+            MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
+        }
+    }
     
 }
 
-bool tache::receiveTache(long target_host){
+bool tache::receiveTache(long target_host,bool results){
     // Send preliminary informations
     // send id
-    char *b;
+    
     int tag;
     MPI::Status status;
     int dimension=0;
@@ -193,7 +198,7 @@ bool tache::receiveTache(long target_host){
     do {
         MPI::COMM_WORLD.Probe(source,MPI::ANY_TAG,status);
         dimension = status.Get_count(MPI::CHAR);
-        b[dimension];
+        char b[dimension];
         MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
         tag = status.Get_tag();
         string buff(b);
@@ -204,8 +209,11 @@ bool tache::receiveTache(long target_host){
             case COMMAND_SEND:        
                     this->command = buff;
                     break;
+            case RESULT:
+                MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
+                savefile(b,this->name);
+                break;
             case NDEP_SEND:
-//                const string dep = buff
                 this->dependencies.push_back(buff);
                 string namefile(b);
                 MPI::COMM_WORLD.Probe(source,MPI::ANY_TAG,status);
@@ -215,22 +223,13 @@ bool tache::receiveTache(long target_host){
                 tag = status.Get_tag();
                 savefile(b,namefile);
                 break;
+
         }
     } while (status.Get_tag() != END);
-    // send command
-    tag = COMMAND_SEND;
-    MPI::COMM_WORLD.Recv((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
-    // send dep_n°
-    tag = NDEP_SEND;
-//    buff = tache::toString(this->dependencies.size()); 
-    MPI::COMM_WORLD.Recv((void *)this->dependencies.size(),1,MPI::INT,target_host,tag);
-    vector<string>::iterator it;
-    tag = DEP_SEND;
-    for(it = this->dependencies.begin(); it != this->dependencies.end(); it++) {
-        string buff = convertFile(*it); 
-        MPI::COMM_WORLD.Recv((void *)this->dependencies.size(),1,MPI::INT,target_host,tag);
+    // 
+    if (results){
+        
     }
-    // filename
 
     ;
     
@@ -250,6 +249,7 @@ string tache::toString(long i){
     ostringstream convert ;   // stream used for the conversion
     convert << i;      // insert the textual representation of 'Number' in the characters in the stream
     buff = convert.str();
+    return buff;
 }
 
 long tache::getId(){

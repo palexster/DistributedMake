@@ -186,7 +186,7 @@ bool Job::run(const long id, const long p){
         tache* toRun = getNewTache();
         target_host= target_host++ % p;
         cout << "Scheduling " << toRun->getId() << " to machine " << target_host;
-        toRun->sendTache(target_host);
+        toRun->sendTache(target_host,false);
         toRun->completed=true;
 //#endif MPI        
 #ifdef VERBOSE
