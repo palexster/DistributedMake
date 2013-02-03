@@ -172,7 +172,8 @@ void Job::putInWaiting(tache* toAdd){
 }
 
 bool Job::run(const long id, const long p){
-    int total = 1;
+    int total = 0;
+    int totalReceived=0;
     int target_host=id;
     string mapping[p];
     MPI::Status status;
@@ -183,8 +184,9 @@ bool Job::run(const long id, const long p){
 #ifdef VERBOSE
     cout << "To do: " << this->nTaches << " \n";
 #endif
-    while( total < this->nTaches){
-       while(tAvailable->size() > 0){
+    while( total < this->nTaches && total <= nTaches){
+       target_host=1;
+       while(target_host<p){
         tache* toRun = getNewTache();
         if (toRun == NULL){
             cout << "Unexpected behaviour\n";
@@ -195,30 +197,22 @@ bool Job::run(const long id, const long p){
         cout << "SENDER: ntaches status: " << this->nTaches << "\n";
         //system("sleep 0.01");
         cout << "SENDER:New Tache taken " << toRun->name << " \n";
-        target_host= ((target_host+1) % p);
-        if (target_host == 0){
-            target_host=1;
-        }
         cout << "SENDER: Scheduling " << toRun->name << " to machine " << target_host << "\n";
         toRun->sendTache(target_host,false);
         mapping[target_host]=toRun->name;
-        //toRun->completed=true;
-//#endif MPI        
-#ifdef VERBOSE
-        cout << "Done: " << total+1 << " \n";
-#endif
+        target_host++;
         total++;
        }
-       
+       //this->testJobDeps();
        //system("sleep 1");
-       while (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
-           //MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
+       while(totalReceived <= total){
+           MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
            cout << "Receiving results...\n";
            int tag = status.Get_tag();
            int source = status.Get_source();
            int dim = status.Get_count(MPI::CHAR);
            if (tag != RESULT){
-               cout << "Protocol error!!!!!!!";
+               cout << "Protocol error!";
                return false;
            }
            else {
@@ -226,14 +220,25 @@ bool Job::run(const long id, const long p){
                tache *t = tMap->at(mapping[source]);
                t->completed=true;
                char *buff=(char*)malloc(sizeof(char)*dim+1);
+               cout << "Mi addormento qua";
                MPI::COMM_WORLD.Recv(buff,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
                cout << "Results " << buff;
                savefile(buff,t->name);
+               this->testJobDeps();
+           }
+           if (tAvailable->size() > 0){
+               cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+               cout << "SENDER: total status: " << total << "\n";
+               cout << "SENDER: ntaches status: " << this->nTaches << "\n";
+               tache* toRun = getNewTache();
+               toRun->sendTache(source,false);
+               mapping[source]=toRun->name;
+               total++;
            }
            
        }
-           this->testJobDeps();
-        
+       
+       totalReceived++; 
     }
     this->signalEnd(p,id);
 }
@@ -247,11 +252,11 @@ bool Job::finalize(){
 
 void Job::signalEnd(const long p,const long id){
     int i=1;
+    string message("die");
     while(i<p){
-        MPI::COMM_WORLD.Send((void*)0,1,MPI::CHAR,i,DIE);
+        sendData(message,i,DIE);
         i++;
     }
-
 };
 
 //#ifdef LOCAL    
