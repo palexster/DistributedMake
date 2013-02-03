@@ -10,6 +10,10 @@
 
 using namespace std;
 
+int master::dimension;
+int master::id;
+int* master::nodes;
+
 master::master() {
 }
 
@@ -22,6 +26,9 @@ master::~master() {
 void master::mainMaster(int argc,char **argv, long id, long p){
         int done;
         char toOpen[256];
+        master::dimension=p;
+        master::id=id;
+        master::nodes=(int*)malloc((sizeof(int)*p));
         Job* travail=new Job;
         if (argc == 1){
             strncpy(toOpen,"Makefile\0",9);
@@ -42,6 +49,27 @@ void master::mainMaster(int argc,char **argv, long id, long p){
                 }
                 
         }
+}
+        
+        void master::SetBusy(int id){
+            master::nodes[id]=1;
+        }
+        
+        void master::SetFree(int id){
+            master::nodes[id]=0;
+        }
+        
+        int master::GetFree(){
+            int i=0;
+            while (i<=dimension && nodes[i]){
+                i++;
+            }
+            if (i=dimension){
+                return 0;
+            }
+            else {
+                return i;
+            }
+        }
         
     //    else cout << "Unable to open file";
-}

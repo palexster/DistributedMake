@@ -87,6 +87,9 @@ void Job::createNewJob(std::string name){
         else if(line.compare("clean:") == 0){
             getline(myfile,this->finalizeCommand);
         }
+        else if(line.compare("check:") == 0){
+            getline(myfile,this->testCommand);
+        }
         else {
             getline(myfile,secondLine);
             tache* toInsert=createNewTache(line,secondLine);
@@ -176,17 +179,15 @@ bool Job::run(const long id, const long p){
     int totalReceived=0;
     int target_host=id;
     string mapping[p];
+    int busy[p];
+    memset(busy,0,p);
     MPI::Status status;
     cout << "tAvailable status: " <<tAvailable->size() << "\n";
     cout << "nTaches status: " << this->nTaches << "\n";
     cout << "p status: " << p << "\n";
-    //cout << "tAvailable status: " <<tAvailable->size() << "\n";
-#ifdef VERBOSE
-    cout << "To do: " << this->nTaches << " \n";
-#endif
-    while( total < this->nTaches && total <= nTaches){
-       target_host=1;
-       while(target_host<p){
+
+
+    while(target_host<p){
         tache* toRun = getNewTache();
         if (toRun == NULL){
             cout << "Unexpected behaviour\n";
@@ -194,8 +195,8 @@ bool Job::run(const long id, const long p){
         }
         cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
         cout << "SENDER: total status: " << total << "\n";
+        cout << "SENDER: totalReceived status: " << totalReceived << "\n";
         cout << "SENDER: ntaches status: " << this->nTaches << "\n";
-        //system("sleep 0.01");
         cout << "SENDER:New Tache taken " << toRun->name << " \n";
         cout << "SENDER: Scheduling " << toRun->name << " to machine " << target_host << "\n";
         toRun->sendTache(target_host,false);
@@ -203,9 +204,13 @@ bool Job::run(const long id, const long p){
         target_host++;
         total++;
        }
+    
+    while( total < this->nTaches && total < nTaches){
+       target_host=1;
+
        //this->testJobDeps();
        //system("sleep 1");
-       while(totalReceived <= total){
+       while(totalReceived <= total && totalReceived < (nTaches)){
            MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
            cout << "Receiving results...\n";
            int tag = status.Get_tag();
@@ -225,10 +230,22 @@ bool Job::run(const long id, const long p){
                cout << "Results " << buff;
                savefile(buff,t->name);
                this->testJobDeps();
+               totalReceived++;
            }
            if (tAvailable->size() > 0){
                cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
                cout << "SENDER: total status: " << total << "\n";
+               cout << "SENDER: totalReceived status: " << totalReceived << "\n";
+               cout << "SENDER: ntaches status: " << this->nTaches << "\n";
+               tache* toRun = getNewTache();
+               toRun->sendTache(source,false);
+               mapping[source]=toRun->name;
+               total++;
+           }
+           while (tAvailable->size() > 0){
+               cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+               cout << "SENDER: total status: " << total << "\n";
+               cout << "SENDER: totalReceived status: " << totalReceived << "\n";
                cout << "SENDER: ntaches status: " << this->nTaches << "\n";
                tache* toRun = getNewTache();
                toRun->sendTache(source,false);
@@ -238,8 +255,9 @@ bool Job::run(const long id, const long p){
            
        }
        
-       totalReceived++; 
+        
     }
+    this->finalize();
     this->signalEnd(p,id);
 }
 

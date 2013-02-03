@@ -21,7 +21,7 @@ slave::~slave() {
 
 void slave::mainSlave(int argc,char **argv, long id, long p){
     bool end=true;
-    while (end){
+    while (end == true){
         tache *t = new tache;
         cout << "SLAVE: Waiting to receive another task"<< id << "\n";
         end = t->receiveTache(0,false);
@@ -29,7 +29,7 @@ void slave::mainSlave(int argc,char **argv, long id, long p){
         t->run();
         t->sendTache(0,true);
         delete t;
-        end=true;
+        //end=true;
     }
 }
 

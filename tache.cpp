@@ -200,11 +200,11 @@ bool tache::sendTache(long target_host,bool results){
             tag = NDEP_SEND;
             buff = (*it); 
             
-            if (Job::CheckPresenceOnHost(target_host,buff) == true){
-                cout << "SENDER: The file is already present!!!!!!!!!!!\n";
-                continue;
-            }
-            
+//            if (Job::CheckPresenceOnHost(target_host,buff) == true){
+//                cout << "SENDER: The file is already present!!!!!!!!!!!\n";
+//                continue;
+//            }
+//            
             sendData(buff,target_host,tag);
             cout << "Sending dependence name " << buff <<" tache:" << this->getId() << " to " << target_host <<"!\n";
             buff = convertFile(*it);
@@ -213,6 +213,7 @@ bool tache::sendTache(long target_host,bool results){
             sendData(buff,target_host,tag);
          }
         sendData("END",target_host,END);
+        cout << "Ne sono fuori!!!!!!!!!!!!!!!!";
     }
     
 }
@@ -254,6 +255,8 @@ bool tache::receiveTache(long target_host,bool results){
                 MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
                 savefile(b,this->name);
                 break;
+            case DIE:
+                return false;
             case NDEP_SEND:
                 this->dependencies.push_back(buff);
                 string namefile = string((char*)b);
@@ -267,7 +270,8 @@ bool tache::receiveTache(long target_host,bool results){
                 break;
         }
     } while (status.Get_tag() != END);
-    //     
+    //
+    return true;
 }
 
 

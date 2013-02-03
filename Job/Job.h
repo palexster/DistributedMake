@@ -41,6 +41,7 @@ private:
     
 //    std::string init;
     std::string finalizeCommand;
+    std::string testCommand;
     static std::deque<tache*> *tAvailable;
     static std::deque<tache*> *tWaiting;
 };
