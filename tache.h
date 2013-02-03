@@ -9,6 +9,7 @@
 #define	TACHE_H
 # include <vector>
 # include "mpi.h"
+
 # include <string>
 # include <map>
 # include <utility>
@@ -30,14 +31,14 @@
 # include <iterator>
 # include <sstream>
 
-
 #define ID_SEND 0
 #define COMMAND_SEND 1
 #define NDEP_SEND 2
 #define DEP_SEND 3
 #define END 4
 #define RESULT 5
-
+#define DIE 6
+#define NAME_SEND 7
 class tache {
 public:
     bool init;
@@ -59,12 +60,14 @@ public:
     bool completed;
     void savefile(char* content,std::string name);
     std::string command;
+    void sendData(std::string data, int dest, int tag);
     bool sendTache(long toRun, bool results);
     static std::string toString(long i);
     static std::string convertFile(std::string name);
+    tache();
 protected:
     static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
-    tache();
+
     std::vector<tache> subTaches; // n° subTaches
     
     int nTaches; // n° subtaches

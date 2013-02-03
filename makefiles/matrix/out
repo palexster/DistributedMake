@@ -1,0 +1,1736 @@
+rm -f a-1-1 a-1-2 a-1-3 a-2-1 a-2-2 a-2-3 a-3-1 a-3-2 a-3-3 b-1-1 b-1-2 b-1-3 b-2-1 b-2-2 b-2-3 b-3-1 b-3-2 b-3-3 p-1-1-1-1 p-1-2-2-1 p-1-3-3-1 p-1-1-1-2 p-1-2-2-2 p-1-3-3-2 p-1-1-1-3 p-1-2-2-3 p-1-3-3-3 p-2-1-1-1 p-2-2-2-1 p-2-3-3-1 p-2-1-1-2 p-2-2-2-2 p-2-3-3-2 p-2-1-1-3 p-2-2-2-3 p-2-3-3-3 p-3-1-1-1 p-3-2-2-1 p-3-3-3-1 p-3-1-1-2 p-3-2-2-2 p-3-3-3-2 p-3-1-1-3 p-3-2-2-3 p-3-3-3-3 c-1-1 c-1-2 c-1-3 c-2-1 c-2-2 c-2-3 c-3-1 c-3-2 c-3-3 c check
+HI! I'm the master! My id is 0 and I belong 1slaves 
+Hi! I'm a slave! My id is 1
+SLAVE: Waiting to receive another task1
+ID SAVED: 1
+NAME SAVED: check
+Copied command:  multiply check a b
+SLAVE: Starting running tache check
+ multiply check a b
+all 
+all
+c
+tache name: check
+Command:  multiply check a b
+tache name: c
+Command: fuse c 3 3 c-1-1 c-1-2 c-1-3 c-2-1 c-2-2 c-2-3 c-3-1 c-3-2 c-3-3
+tache name: c-1-1
+Command: sum c-1-1 p-1-1-1-1 p-1-2-2-1 p-1-3-3-1
+tache name: c-1-2
+Command: sum c-1-2 p-1-1-1-2 p-1-2-2-2 p-1-3-3-2
+tache name: c-1-3
+Command: sum c-1-3 p-1-1-1-3 p-1-2-2-3 p-1-3-3-3
+tache name: c-2-1
+Command: sum c-2-1 p-2-1-1-1 p-2-2-2-1 p-2-3-3-1
+tache name: c-2-2
+Command: sum c-2-2 p-2-1-1-2 p-2-2-2-2 p-2-3-3-2
+tache name: c-2-3
+Command: sum c-2-3 p-2-1-1-3 p-2-2-2-3 p-2-3-3-3
+tache name: c-3-1
+Command: sum c-3-1 p-3-1-1-1 p-3-2-2-1 p-3-3-3-1
+tache name: c-3-2
+Command: sum c-3-2 p-3-1-1-2 p-3-2-2-2 p-3-3-3-2
+tache name: c-3-3
+Command: sum c-3-3 p-3-1-1-3 p-3-2-2-3 p-3-3-3-3
+tache name: p-1-1-1-1
+Command: multiply p-1-1-1-1 a-1-1 b-1-1
+tache name: p-1-2-2-1
+Command: multiply p-1-2-2-1 a-1-2 b-2-1
+tache name: p-1-3-3-1
+Command: multiply p-1-3-3-1 a-1-3 b-3-1
+tache name: p-1-1-1-2
+Command: multiply p-1-1-1-2 a-1-1 b-1-2
+tache name: p-1-2-2-2
+Command: multiply p-1-2-2-2 a-1-2 b-2-2
+tache name: p-1-3-3-2
+Command: multiply p-1-3-3-2 a-1-3 b-3-2
+tache name: p-1-1-1-3
+Command: multiply p-1-1-1-3 a-1-1 b-1-3
+tache name: p-1-2-2-3
+Command: multiply p-1-2-2-3 a-1-2 b-2-3
+tache name: p-1-3-3-3
+Command: multiply p-1-3-3-3 a-1-3 b-3-3
+tache name: p-2-1-1-1
+Command: multiply p-2-1-1-1 a-2-1 b-1-1
+tache name: p-2-2-2-1
+Command: multiply p-2-2-2-1 a-2-2 b-2-1
+tache name: p-2-3-3-1
+Command: multiply p-2-3-3-1 a-2-3 b-3-1
+tache name: p-2-1-1-2
+Command: multiply p-2-1-1-2 a-2-1 b-1-2
+tache name: p-2-2-2-2
+Command: multiply p-2-2-2-2 a-2-2 b-2-2
+tache name: p-2-3-3-2
+Command: multiply p-2-3-3-2 a-2-3 b-3-2
+tache name: p-2-1-1-3
+Command: multiply p-2-1-1-3 a-2-1 b-1-3
+tache name: p-2-2-2-3
+Command: multiply p-2-2-2-3 a-2-2 b-2-3
+tache name: p-2-3-3-3
+Command: multiply p-2-3-3-3 a-2-3 b-3-3
+tache name: p-3-1-1-1
+Command: multiply p-3-1-1-1 a-3-1 b-1-1
+tache name: p-3-2-2-1
+Command: multiply p-3-2-2-1 a-3-2 b-2-1
+tache name: p-3-3-3-1
+Command: multiply p-3-3-3-1 a-3-3 b-3-1
+tache name: p-3-1-1-2
+Command: multiply p-3-1-1-2 a-3-1 b-1-2
+tache name: p-3-2-2-2
+Command: multiply p-3-2-2-2 a-3-2 b-2-2
+tache name: p-3-3-3-2
+Command: multiply p-3-3-3-2 a-3-3 b-3-2
+tache name: p-3-1-1-3
+Command: multiply p-3-1-1-3 a-3-1 b-1-3
+tache name: p-3-2-2-3
+Command: multiply p-3-2-2-3 a-3-2 b-2-3
+tache name: p-3-3-3-3
+Command: multiply p-3-3-3-3 a-3-3 b-3-3
+tache name: a-1-1
+Command: split a-1-1 a 3 3 1 1
+tache name: a-1-2
+Command: split a-1-2 a 3 3 1 2
+tache name: a-1-3
+Command: split a-1-3 a 3 3 1 3
+tache name: a-2-1
+Command: split a-2-1 a 3 3 2 1
+tache name: a-2-2
+Command: split a-2-2 a 3 3 2 2
+tache name: a-2-3
+Command: split a-2-3 a 3 3 2 3
+tache name: a-3-1
+Command: split a-3-1 a 3 3 3 1
+tache name: a-3-2
+Command: split a-3-2 a 3 3 3 2
+tache name: a-3-3
+Command: split a-3-3 a 3 3 3 3
+tache name: b-1-1
+Command: split b-1-1 b 3 3 1 1
+tache name: b-1-2
+Command: split b-1-2 b 3 3 1 2
+tache name: b-1-3
+Command: split b-1-3 b 3 3 1 3
+tache name: b-2-1
+Command: split b-2-1 b 3 3 2 1
+tache name: b-2-2
+Command: split b-2-2 b 3 3 2 2
+tache name: b-2-3
+Command: split b-2-3 b 3 3 2 3
+tache name: b-3-1
+Command: split b-3-1 b 3 3 3 1
+tache name: b-3-2
+Command: split b-3-2 b 3 3 3 2
+tache name: b-3-3
+Command: split b-3-3 b 3 3 3 3
+all tache are in tWaiting, ready to start
+available taches are now in tAvailble
+tAvailable status: 19
+nTaches status: 57
+p status: 2
+Unexpected behaviour
+SENDER: tAvailable status: 18
+SENDER: total status: 1
+SENDER: ntaches status: 57
+SENDER:New Tache taken check 
+SENDER: Scheduling check to machine 1
+SENDER:Sending id tache:1 to 1!
+SENDER:Sending command tache:1 to 1!
+Sending dependence name a tache:1 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Sending dependence name b tache:1 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 17
+SENDER: total status: 2
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-1-1 
+SENDER: Scheduling a-1-1 to machine 1
+SENDER:Sending id tache:39 to 1!
+SENDER:Sending command tache:39 to 1!
+Sending dependence name a tache:39 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 16
+SENDER: total status: 3
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-1-2 
+SENDER: Scheduling a-1-2 to machine 1
+SENDER:Sending id tache:40 to 1!
+SENDER:Sending command tache:40 to 1!
+Sending dependence name a tache:40 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 15
+SENDER: total status: 4
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-1-3 
+SENDER: Scheduling a-1-3 to machine 1
+SENDER:Sending id tache:41 to 1!
+SENDER:Sending command tache:41 to 1!
+Sending dependence name a tache:41 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 14
+SENDER: total status: 5
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-2-1 
+SENDER: Scheduling a-2-1 to machine 1
+SENDER:Sending id tache:42 to 1!
+SENDER:Sending command tache:42 to 1!
+Sending dependence name a tache:42 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 13
+SENDER: total status: 6
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-2-2 
+SENDER: Scheduling a-2-2 to machine 1
+SENDER:Sending id tache:43 to 1!
+SENDER:Sending command tache:43 to 1!
+Sending dependence name a tache:43 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 12
+SENDER: total status: 7
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-2-3 
+SENDER: Scheduling a-2-3 to machine 1
+SENDER:Sending id tache:44 to 1!
+SENDER:Sending command tache:44 to 1!
+Sending dependence name a tache:44 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 11
+SENDER: total status: 8
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-3-1 
+SENDER: Scheduling a-3-1 to machine 1
+SENDER:Sending id tache:45 to 1!
+SENDER:Sending command tache:45 to 1!
+Sending dependence name a tache:45 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 10
+SENDER: total status: 9
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-3-2 
+SENDER: Scheduling a-3-2 to machine 1
+SENDER:Sending id tache:46 to 1!
+SENDER:Sending command tache:46 to 1!
+Sending dependence name a tache:46 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 9
+SENDER: total status: 10
+SENDER: ntaches status: 57
+SENDER:New Tache taken a-3-3 
+SENDER: Scheduling a-3-3 to machine 1
+SENDER:Sending id tache:47 to 1!
+SENDER:Sending command tache:47 to 1!
+Sending dependence name a tache:47 to 1!
+0xbf92f664
+SENDER File: 3 3
+5 5 1
+6 1 10
+2 1 8
+Unexpected behaviour
+SENDER: tAvailable status: 8
+SENDER: total status: 11
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-1-1 
+SENDER: Scheduling b-1-1 to machine 1
+SENDER:Sending id tache:48 to 1!
+SENDER:Sending command tache:48 to 1!
+Sending dependence name b tache:48 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 7
+SENDER: total status: 12
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-1-2 
+SENDER: Scheduling b-1-2 to machine 1
+SENDER:Sending id tache:49 to 1!
+SENDER:Sending command tache:49 to 1!
+Sending dependence name b tache:49 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 6
+SENDER: total status: 13
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-1-3 
+SENDER: Scheduling b-1-3 to machine 1
+SENDER:Sending id tache:50 to 1!
+SENDER:Sending command tache:50 to 1!
+Sending dependence name b tache:50 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 5
+SENDER: total status: 14
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-2-1 
+SENDER: Scheduling b-2-1 to machine 1
+SENDER:Sending id tache:51 to 1!
+SENDER:Sending command tache:51 to 1!
+Sending dependence name b tache:51 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 4
+SENDER: total status: 15
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-2-2 
+SENDER: Scheduling b-2-2 to machine 1
+SENDER:Sending id tache:52 to 1!
+SENDER:Sending command tache:52 to 1!
+Sending dependence name b tache:52 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 3
+SENDER: total status: 16
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-2-3 
+SENDER: Scheduling b-2-3 to machine 1
+SENDER:Sending id tache:53 to 1!
+SENDER:Sending command tache:53 to 1!
+Sending dependence name b tache:53 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 17
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-3-1 
+SENDER: Scheduling b-3-1 to machine 1
+SENDER:Sending id tache:54 to 1!
+SENDER:Sending command tache:54 to 1!
+Sending dependence name b tache:54 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 18
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-3-2 
+SENDER: Scheduling b-3-2 to machine 1
+SENDER:Sending id tache:55 to 1!
+SENDER:Sending command tache:55 to 1!
+Sending dependence name b tache:55 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 19
+SENDER: ntaches status: 57
+SENDER:New Tache taken b-3-3 
+SENDER: Scheduling b-3-3 to machine 1
+SENDER:Sending id tache:56 to 1!
+SENDER:Sending command tache:56 to 1!
+Sending dependence name b tache:56 to 1!
+0xbf92f664
+SENDER File: 3 3
+6 2 2
+9 10 7
+7 5 10
+0xbfd62244
+This is the result to send:3 3
+82 65 55
+115 72 119
+77 54 91
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 39
+NAME SAVED: a-1-1
+Copied command: split a-1-1 a 3 3 1 1
+Receiving results...
+Completing tache b-3-3
+Results 3 3
+82 65 55
+115 72 119
+77 54 91
+SLAVE: Starting running tache a-1-1
+split a-1-1 a 3 3 1 1
+0xbfd62244
+This is the result to send:1 1
+5
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 40
+NAME SAVED: a-1-2
+Copied command: split a-1-2 a 3 3 1 2
+SLAVE: Starting running tache a-1-2
+split a-1-2 a 3 3 1 2
+Receiving results...
+Completing tache b-3-3
+Results 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+5
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 41
+NAME SAVED: a-1-3
+Copied command: split a-1-3 a 3 3 1 3
+SLAVE: Starting running tache a-1-3
+split a-1-3 a 3 3 1 3
+Receiving results...
+Completing tache b-3-3
+Results 1 1
+5
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 20
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-3-3-3 
+SENDER: Scheduling p-1-3-3-3 to machine 1
+SENDER:Sending id tache:20 to 1!
+SENDER:Sending command tache:20 to 1!
+Sending dependence name a-1-3 tache:20 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-3-3 tache:20 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+1
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 42
+NAME SAVED: a-2-1
+Copied command: split a-2-1 a 3 3 2 1
+SLAVE: Starting running tache a-2-1
+split a-2-1 a 3 3 2 1
+Receiving results...
+Completing tache p-1-3-3-3
+Results 1 1
+1
+0xbfd62244
+This is the result to send:1 1
+6
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 43
+NAME SAVED: a-2-2
+Copied command: split a-2-2 a 3 3 2 2
+SLAVE: Starting running tache a-2-2
+split a-2-2 a 3 3 2 2
+Receiving results...
+Completing tache p-1-3-3-3
+Results 1 1
+6
+0xbfd62244
+This is the result to send:1 1
+1
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 44
+NAME SAVED: a-2-3
+Copied command: split a-2-3 a 3 3 2 3
+SLAVE: Starting running tache a-2-3
+split a-2-3 a 3 3 2 3
+Receiving results...
+Completing tache p-1-3-3-3
+Results 1 1
+1
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 21
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-3-3-3 
+SENDER: Scheduling p-2-3-3-3 to machine 1
+SENDER:Sending id tache:29 to 1!
+SENDER:Sending command tache:29 to 1!
+Sending dependence name a-2-3 tache:29 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name b-3-3 tache:29 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 45
+NAME SAVED: a-3-1
+Receiving results...
+Completing tache p-2-3-3-3
+Results 1 1
+10
+Copied command: split a-3-1 a 3 3 3 1
+SLAVE: Starting running tache a-3-1
+split a-3-1 a 3 3 3 1
+0xbfd62244
+This is the result to send:1 1
+2
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 46
+NAME SAVED: a-3-2
+Copied command: split a-3-2 a 3 3 3 2
+SLAVE: Starting running tache a-3-2
+split a-3-2 a 3 3 3 2
+Receiving results...
+Completing tache p-2-3-3-3
+Results 1 1
+2
+0xbfd62244
+This is the result to send:1 1
+1
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 47
+NAME SAVED: a-3-3
+Copied command: split a-3-3 a 3 3 3 3
+SLAVE: Starting running tache a-3-3
+split a-3-3 a 3 3 3 3
+Receiving results...
+Completing tache p-2-3-3-3
+Results 1 1
+1
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 22
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-3-3-3 
+SENDER: Scheduling p-3-3-3-3 to machine 1
+SENDER:Sending id tache:38 to 1!
+SENDER:Sending command tache:38 to 1!
+Sending dependence name a-3-3 tache:38 to 1!
+0xbf92f664
+SENDER File: 1 1
+8
+Sending dependence name b-3-3 tache:38 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+8
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 48
+NAME SAVED: b-1-1
+Copied command: split b-1-1 b 3 3 1 1
+SLAVE: Starting running tache b-1-1
+split b-1-1 b 3 3 1 1
+Receiving results...
+Completing tache p-3-3-3-3
+Results 1 1
+8
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 23
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-1-1-1 
+SENDER: Scheduling p-1-1-1-1 to machine 1
+SENDER:Sending id tache:12 to 1!
+SENDER:Sending command tache:12 to 1!
+Sending dependence name a-1-1 tache:12 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-1-1 tache:12 to 1!
+0xbf92f664
+SENDER File: 1 1
+6
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 24
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-1-1-1 
+SENDER: Scheduling p-2-1-1-1 to machine 1
+SENDER:Sending id tache:21 to 1!
+SENDER:Sending command tache:21 to 1!
+Sending dependence name a-2-1 tache:21 to 1!
+0xbf92f664
+SENDER File: 1 1
+6
+0xbfd62244
+Sending dependence name b-1-1 tache:21 to 1!
+0xbf92f664
+SENDER File: 1 1
+6
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 25
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-1-1-1 
+SENDER: Scheduling p-3-1-1-1 to machine 1
+SENDER:Sending id tache:30 to 1!
+SENDER:Sending command tache:30 to 1!
+This is the result to send:1 1
+6
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Sending dependence name a-3-1 tache:30 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+Sending dependence name b-1-1 tache:30 to 1!
+0xbf92f664
+SENDER File: 1 1
+6
+ID SAVED: 49
+NAME SAVED: b-1-2
+Copied command: split b-1-2 b 3 3 1 2
+SLAVE: Starting running tache b-1-2
+split b-1-2 b 3 3 1 2
+Receiving results...
+Completing tache p-3-1-1-1
+Results 1 1
+6
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 26
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-1-1-2 
+SENDER: Scheduling p-1-1-1-2 to machine 1
+SENDER:Sending id tache:15 to 1!
+SENDER:Sending command tache:15 to 1!
+Sending dependence name a-1-1 tache:15 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-1-2 tache:15 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 27
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-1-1-2 
+SENDER: Scheduling p-2-1-1-2 to machine 1
+SENDER:Sending id tache:24 to 1!
+SENDER:Sending command tache:24 to 1!
+Sending dependence name a-2-1 tache:24 to 1!
+0xbfd62244
+0xbf92f664
+SENDER File: 1 1
+6
+Sending dependence name b-1-2 tache:24 to 1!
+This is the result to send:1 1
+2
+
+0xbf92f664
+SENDER File: 1 1
+2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 28
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-1-1-2 
+Message Sent!
+SLAVE: Waiting to receive another task1
+SENDER: Scheduling p-3-1-1-2 to machine 1
+SENDER:Sending id tache:33 to 1!
+SENDER:Sending command tache:33 to 1!
+Sending dependence name a-3-1 tache:33 to 1!
+ID SAVED: 50
+NAME SAVED: b-1-3
+Copied command: split b-1-3 b 3 3 1 3
+0xbf92f664
+SENDER File: 1 1
+2
+Sending dependence name b-1-2 tache:33 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+SLAVE: Starting running tache b-1-3
+split b-1-3 b 3 3 1 3
+Receiving results...
+Completing tache p-3-1-1-2
+Results 1 1
+2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 29
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-1-1-3 
+SENDER: Scheduling p-3-1-1-3 to machine 1
+SENDER:Sending id tache:36 to 1!
+SENDER:Sending command tache:36 to 1!
+Sending dependence name a-3-1 tache:36 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+Sending dependence name b-1-3 tache:36 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+0xbfd62244
+This is the result to send:1 1
+2
+
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 30
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-1-1-3 
+SENDER: Scheduling p-1-1-1-3 to machine 1
+Message Sent!
+SLAVE: Waiting to receive another task1
+SENDER:Sending id tache:18 to 1!
+SENDER:Sending command tache:18 to 1!
+Sending dependence name a-1-1 tache:18 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-1-3 tache:18 to 1!
+ID SAVED: 51
+NAME SAVED: b-2-1
+Copied command: split b-2-1 b 3 3 2 1
+0xbf92f664
+SENDER File: 1 1
+2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 31
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-1-1-3 
+SENDER: Scheduling p-2-1-1-3 to machine 1
+SENDER:Sending id tache:27 to 1!
+SENDER:Sending command tache:27 to 1!
+Sending dependence name a-2-1 tache:27 to 1!
+0xbf92f664
+SLAVE: Starting running tache b-2-1
+split b-2-1 b 3 3 2 1
+SENDER File: 1 1
+6
+Sending dependence name b-1-3 tache:27 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+Receiving results...
+Completing tache p-2-1-1-3
+Results 1 1
+2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 32
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-2-2-1 
+SENDER: Scheduling p-3-2-2-1 to machine 1
+SENDER:Sending id tache:31 to 1!
+SENDER:Sending command tache:31 to 1!
+Sending dependence name a-3-2 tache:31 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-2-1 tache:31 to 1!
+0xbf92f664
+SENDER File: 1 1
+9
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 33
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-2-2-1 
+SENDER: Scheduling p-1-2-2-1 to machine 1
+SENDER:Sending id tache:13 to 1!
+SENDER:Sending command tache:13 to 1!
+0xbfd62244
+This is the result to send:1 1
+9
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 52
+NAME SAVED: b-2-2
+Copied command: split b-2-2 b 3 3 2 2
+SLAVE: Starting running tache b-2-2
+split b-2-2 b 3 3 2 2
+Sending dependence name a-1-2 tache:13 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-2-1 tache:13 to 1!
+0xbf92f664
+SENDER File: 1 1
+9
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 34
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-2-2-1 
+SENDER: Scheduling p-2-2-2-1 to machine 1
+SENDER:Sending id tache:22 to 1!
+SENDER:Sending command tache:22 to 1!
+Sending dependence name a-2-2 tache:22 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-2-1 tache:22 to 1!
+0xbf92f664
+SENDER File: 1 1
+9
+Receiving results...
+Completing tache p-2-2-2-1
+Results 1 1
+9
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 35
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-2-2-2 
+SENDER: Scheduling p-1-2-2-2 to machine 1
+SENDER:Sending id tache:16 to 1!
+SENDER:Sending command tache:16 to 1!
+Sending dependence name a-1-2 tache:16 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-2-2 tache:16 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 36
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-2-2-2 
+SENDER: Scheduling p-2-2-2-2 to machine 1
+SENDER:Sending id tache:25 to 1!
+SENDER:Sending command tache:25 to 1!
+Sending dependence name a-2-2 tache:25 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-2-2 tache:25 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 37
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-2-2-2 
+SENDER: Scheduling p-3-2-2-2 to machine 1
+SENDER:Sending id tache:34 to 1!
+SENDER:Sending command tache:34 to 1!
+Sending dependence name a-3-2 tache:34 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-2-2 tache:34 to 1!
+0xbf92f664
+0xbfd62244
+SENDER File: 1 1
+10
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 53
+NAME SAVED: b-2-3
+Copied command: split b-2-3 b 3 3 2 3
+Receiving results...
+Completing tache p-3-2-2-2
+SLAVE: Starting running tache b-2-3
+split b-2-3 b 3 3 2 3
+Results 1 1
+10
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 38
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-2-2-3 
+SENDER: Scheduling p-1-2-2-3 to machine 1
+SENDER:Sending id tache:19 to 1!
+SENDER:Sending command tache:19 to 1!
+Sending dependence name a-1-2 tache:19 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name b-2-3 tache:19 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 39
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-2-2-3 
+0xbfd62244
+SENDER: Scheduling p-2-2-2-3 to machine 1
+SENDER:Sending id tache:28 to 1!
+SENDER:Sending command tache:28 to 1!
+Sending dependence name a-2-2 tache:28 to 1!
+0xbf92f664
+This is the result to send:1 1
+7
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 54
+NAME SAVED: b-3-1
+SENDER File: 1 1
+1
+Sending dependence name b-2-3 tache:28 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 40
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-2-2-3 
+SENDER: Scheduling p-3-2-2-3 to machine 1
+SENDER:Sending id tache:37 to 1!
+SENDER:Sending command tache:37 to 1!
+Sending dependence name a-3-2 tache:37 to 1!
+Copied command: split b-3-1 b 3 3 3 1
+SLAVE: Starting running tache b-3-1
+split b-3-1 b 3 3 3 1
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-2-3 tache:37 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Receiving results...
+Completing tache p-3-2-2-3
+Results 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 41
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-3-3-1 
+SENDER: Scheduling p-2-3-3-1 to machine 1
+SENDER:Sending id tache:23 to 1!
+SENDER:Sending command tache:23 to 1!
+Sending dependence name a-2-3 tache:23 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name b-3-1 tache:23 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 42
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-3-3-1 
+SENDER: Scheduling p-3-3-3-1 to machine 1
+SENDER:Sending id tache:32 to 1!
+SENDER:Sending command tache:32 to 1!
+Sending dependence name a-3-3 tache:32 to 1!
+0xbf92f664
+SENDER File: 1 1
+8
+Sending dependence name b-3-1 tache:32 to 1!
+0xbf92f664
+0xbfd62244
+This is the result to send:1 1
+7
+
+SENDER File: 1 1
+7
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 55
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 43
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-3-3-1 
+SENDER: Scheduling p-1-3-3-1 to machine 1
+SENDER:Sending id tache:14 to 1!
+SENDER:Sending command tache:14 to 1!
+Sending dependence name a-1-3 tache:14 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+NAME SAVED: b-3-2
+Copied command: split b-3-2 b 3 3 3 2
+SLAVE: Starting running tache b-3-2
+split b-3-2 b 3 3 3 2
+Sending dependence name b-3-1 tache:14 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Receiving results...
+Completing tache p-1-3-3-1
+Results 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 2
+SENDER: total status: 44
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-1-3-3-2 
+SENDER: Scheduling p-1-3-3-2 to machine 1
+SENDER:Sending id tache:17 to 1!
+SENDER:Sending command tache:17 to 1!
+Sending dependence name a-1-3 tache:17 to 1!
+0xbf92f664
+SENDER File: 1 1
+1
+Sending dependence name b-3-2 tache:17 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Unexpected behaviour
+SENDER: tAvailable status: 1
+SENDER: total status: 45
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-2-3-3-2 
+SENDER: Scheduling p-2-3-3-2 to machine 1
+SENDER:Sending id tache:26 to 1!
+SENDER:Sending command tache:26 to 1!
+Sending dependence name a-2-3 tache:26 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name b-3-2 tache:26 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Unexpected behaviour
+0xbfd62244
+This is the result to send:1 1
+5
+SENDER: tAvailable status: 0
+SENDER: total status: 46
+SENDER: ntaches status: 57
+SENDER:New Tache taken p-3-3-3-2 
+SENDER: Scheduling p-3-3-3-2 to machine 1
+SENDER:Sending id tache:35 to 1!
+SENDER:Sending command tache:35 to 1!
+Sending dependence name a-3-3 tache:35 to 1!
+0xbf92f664
+
+Message Sent!
+SENDER File: 1 1
+8
+Sending dependence name b-3-2 tache:35 to 1!
+0xbf92f664
+SLAVE: Waiting to receive another task1
+ID SAVED: 56
+NAME SAVED: b-3-3
+SENDER File: 1 1
+5
+Copied command: split b-3-3 b 3 3 3 3
+Receiving results...
+Completing tache p-3-3-3-2
+Results 1 1
+5
+SLAVE: Starting running tache b-3-3
+split b-3-3 b 3 3 3 3
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 47
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-3-2 
+SENDER: Scheduling c-3-2 to machine 1
+SENDER:Sending id tache:10 to 1!
+SENDER:Sending command tache:10 to 1!
+Sending dependence name p-3-1-1-2 tache:10 to 1!
+0xbf92f664
+SENDER File: 1 1
+2
+Sending dependence name p-3-2-2-2 tache:10 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name p-3-3-3-2 tache:10 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+10
+ID SAVED: 20
+NAME SAVED: p-1-3-3-3
+Copied command: multiply p-1-3-3-3 a-1-3 b-3-3
+SLAVE: Starting running tache p-1-3-3-3
+multiply p-1-3-3-3 a-1-3 b-3-3
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 29
+NAME SAVED: p-2-3-3-3
+Copied command: multiply p-2-3-3-3 a-2-3 b-3-3
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+10
+SLAVE: Starting running tache p-2-3-3-3
+multiply p-2-3-3-3 a-2-3 b-3-3
+0xbfd62244
+This is the result to send:1 1
+100
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 38
+NAME SAVED: p-3-3-3-3
+Copied command: multiply p-3-3-3-3 a-3-3 b-3-3
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+100
+SLAVE: Starting running tache p-3-3-3-3
+multiply p-3-3-3-3 a-3-3 b-3-3
+0xbfd62244
+This is the result to send:1 1
+80
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 12
+NAME SAVED: p-1-1-1-1
+Copied command: multiply p-1-1-1-1 a-1-1 b-1-1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+80
+SLAVE: Starting running tache p-1-1-1-1
+multiply p-1-1-1-1 a-1-1 b-1-1
+0xbfd62244
+This is the result to send:1 1
+30
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+30
+ID SAVED: 21
+NAME SAVED: p-2-1-1-1
+Copied command: multiply p-2-1-1-1 a-2-1 b-1-1
+SLAVE: Starting running tache p-2-1-1-1
+multiply p-2-1-1-1 a-2-1 b-1-1
+0xbfd62244
+This is the result to send:1 1
+36
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 30
+NAME SAVED: p-3-1-1-1
+Copied command: multiply p-3-1-1-1 a-3-1 b-1-1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+36
+SLAVE: Starting running tache p-3-1-1-1
+multiply p-3-1-1-1 a-3-1 b-1-1
+0xbfd62244
+This is the result to send:1 1
+12
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+12
+ID SAVED: 15
+NAME SAVED: p-1-1-1-2
+Copied command: multiply p-1-1-1-2 a-1-1 b-1-2
+SLAVE: Starting running tache p-1-1-1-2
+multiply p-1-1-1-2 a-1-1 b-1-2
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 24
+NAME SAVED: p-2-1-1-2
+Copied command: multiply p-2-1-1-2 a-2-1 b-1-2
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+10
+SLAVE: Starting running tache p-2-1-1-2
+multiply p-2-1-1-2 a-2-1 b-1-2
+0xbfd62244
+This is the result to send:1 1
+12
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+12
+ID SAVED: 33
+NAME SAVED: p-3-1-1-2
+Copied command: multiply p-3-1-1-2 a-3-1 b-1-2
+SLAVE: Starting running tache p-3-1-1-2
+multiply p-3-1-1-2 a-3-1 b-1-2
+0xbfd62244
+This is the result to send:1 1
+4
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 36
+NAME SAVED: p-3-1-1-3
+Copied command: multiply p-3-1-1-3 a-3-1 b-1-3
+SLAVE: Starting running tache p-3-1-1-3
+multiply p-3-1-1-3 a-3-1 b-1-3
+Receiving results...
+Completing tache c-3-2
+Results 1 1
+4
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 48
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-3-3 
+SENDER: Scheduling c-3-3 to machine 1
+SENDER:Sending id tache:11 to 1!
+SENDER:Sending command tache:11 to 1!
+Sending dependence name p-3-1-1-3 tache:11 to 1!
+0xbf92f664
+SENDER File: 1 1
+4
+Sending dependence name p-3-2-2-3 tache:11 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Sending dependence name p-3-3-3-3 tache:11 to 1!
+0xbf92f664
+SENDER File: 1 1
+80
+0xbfd62244
+This is the result to send:1 1
+4
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-3
+Results 1 1
+4
+ID SAVED: 18
+NAME SAVED: p-1-1-1-3
+Copied command: multiply p-1-1-1-3 a-1-1 b-1-3
+SLAVE: Starting running tache p-1-1-1-3
+multiply p-1-1-1-3 a-1-1 b-1-3
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 27
+NAME SAVED: p-2-1-1-3
+Copied command: multiply p-2-1-1-3 a-2-1 b-1-3
+Receiving results...
+Completing tache c-3-3
+Results 1 1
+10
+SLAVE: Starting running tache p-2-1-1-3
+multiply p-2-1-1-3 a-2-1 b-1-3
+0xbfd62244
+This is the result to send:1 1
+12
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-3
+Results 1 1
+12
+ID SAVED: 31
+NAME SAVED: p-3-2-2-1
+Copied command: multiply p-3-2-2-1 a-3-2 b-2-1
+SLAVE: Starting running tache p-3-2-2-1
+multiply p-3-2-2-1 a-3-2 b-2-1
+0xbfd62244
+This is the result to send:1 1
+9
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 13
+NAME SAVED: p-1-2-2-1
+Copied command: multiply p-1-2-2-1 a-1-2 b-2-1
+Receiving results...
+Completing tache c-3-3
+Results 1 1
+9
+SLAVE: Starting running tache p-1-2-2-1
+multiply p-1-2-2-1 a-1-2 b-2-1
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 49
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-1-1 
+SENDER: Scheduling c-1-1 to machine 1
+SENDER:Sending id tache:3 to 1!
+SENDER:Sending command tache:3 to 1!
+Sending dependence name p-1-1-1-1 tache:3 to 1!
+0xbf92f664
+SENDER File: 1 1
+30
+Sending dependence name p-1-2-2-1 tache:3 to 1!
+0xbf92f664
+SENDER File: 1 1
+45
+Sending dependence name p-1-3-3-1 tache:3 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+0xbfd62244
+This is the result to send:1 1
+45
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-1-1
+Results 1 1
+45
+ID SAVED: 22
+NAME SAVED: p-2-2-2-1
+Copied command: multiply p-2-2-2-1 a-2-2 b-2-1
+SLAVE: Starting running tache p-2-2-2-1
+multiply p-2-2-2-1 a-2-2 b-2-1
+0xbfd62244
+This is the result to send:1 1
+9
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 16
+NAME SAVED: p-1-2-2-2
+Copied command: multiply p-1-2-2-2 a-1-2 b-2-2
+Receiving results...
+Completing tache c-1-1
+Results 1 1
+9
+SLAVE: Starting running tache p-1-2-2-2
+multiply p-1-2-2-2 a-1-2 b-2-2
+0xbfd62244
+This is the result to send:1 1
+50
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-1-1
+Results 1 1
+50
+ID SAVED: 25
+NAME SAVED: p-2-2-2-2
+Copied command: multiply p-2-2-2-2 a-2-2 b-2-2
+SLAVE: Starting running tache p-2-2-2-2
+multiply p-2-2-2-2 a-2-2 b-2-2
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 34
+NAME SAVED: p-3-2-2-2
+Copied command: multiply p-3-2-2-2 a-3-2 b-2-2
+SLAVE: Starting running tache p-3-2-2-2
+multiply p-3-2-2-2 a-3-2 b-2-2
+Receiving results...
+Completing tache c-1-1
+Results 1 1
+10
+0xbfd62244
+This is the result to send:1 1
+10
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-1-1
+Results 1 1
+10
+ID SAVED: 19
+NAME SAVED: p-1-2-2-3
+Copied command: multiply p-1-2-2-3 a-1-2 b-2-3
+SLAVE: Starting running tache p-1-2-2-3
+multiply p-1-2-2-3 a-1-2 b-2-3
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 50
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-1-3 
+SENDER: Scheduling c-1-3 to machine 1
+SENDER:Sending id tache:5 to 1!
+SENDER:Sending command tache:5 to 1!
+Sending dependence name p-1-1-1-3 tache:5 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name p-1-2-2-3 tache:5 to 1!
+0xbfd62244
+This is the result to send:1 1
+35
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 28
+NAME SAVED: p-2-2-2-3
+0xbf92f664
+SENDER File: 1 1
+35
+Copied command: multiply p-2-2-2-3 a-2-2 b-2-3
+Sending dependence name p-1-3-3-3 tache:5 to 1!
+0xbf92f664
+SLAVE: Starting running tache p-2-2-2-3
+multiply p-2-2-2-3 a-2-2 b-2-3
+SENDER File: 1 1
+10
+Receiving results...
+Completing tache c-1-3
+Results 1 1
+35
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 51
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-2-3 
+SENDER: Scheduling c-2-3 to machine 1
+SENDER:Sending id tache:8 to 1!
+SENDER:Sending command tache:8 to 1!
+Sending dependence name p-2-1-1-3 tache:8 to 1!
+0xbf92f664
+SENDER File: 1 1
+12
+Sending dependence name p-2-2-2-3 tache:8 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Sending dependence name p-2-3-3-3 tache:8 to 1!
+0xbf92f664
+SENDER File: 1 1
+100
+0xbfd62244
+This is the result to send:1 1
+7
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 37
+NAME SAVED: p-3-2-2-3
+Copied command: multiply p-3-2-2-3 a-3-2 b-2-3
+Receiving results...
+Completing tache c-2-3
+Results 1 1
+7
+SLAVE: Starting running tache p-3-2-2-3
+multiply p-3-2-2-3 a-3-2 b-2-3
+0xbfd62244
+This is the result to send:1 1
+7
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 23
+NAME SAVED: p-2-3-3-1
+Copied command: multiply p-2-3-3-1 a-2-3 b-3-1
+SLAVE: Starting running tache p-2-3-3-1
+multiply p-2-3-3-1 a-2-3 b-3-1
+Receiving results...
+Completing tache c-2-3
+Results 1 1
+7
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 52
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-2-1 
+SENDER: Scheduling c-2-1 to machine 1
+SENDER:Sending id tache:6 to 1!
+SENDER:Sending command tache:6 to 1!
+Sending dependence name p-2-1-1-1 tache:6 to 1!
+0xbf92f664
+SENDER File: 1 1
+36
+Sending dependence name p-2-2-2-1 tache:6 to 1!
+0xbf92f664
+SENDER File: 1 1
+9
+Sending dependence name p-2-3-3-1 tache:6 to 1!
+0xbf92f664
+SENDER File: 1 1
+70
+0xbfd62244
+This is the result to send:1 1
+70
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-2-1
+Results 1 1
+70
+ID SAVED: 32
+NAME SAVED: p-3-3-3-1
+Copied command: multiply p-3-3-3-1 a-3-3 b-3-1
+SLAVE: Starting running tache p-3-3-3-1
+multiply p-3-3-3-1 a-3-3 b-3-1
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 53
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-3-1 
+SENDER: Scheduling c-3-1 to machine 1
+SENDER:Sending id tache:9 to 1!
+SENDER:Sending command tache:9 to 1!
+Sending dependence name p-3-1-1-1 tache:9 to 1!
+0xbf92f664
+SENDER File: 1 1
+12
+Sending dependence name p-3-2-2-1 tache:9 to 1!
+0xbf92f664
+SENDER File: 1 1
+9
+Sending dependence name p-3-3-3-1 tache:9 to 1!
+0xbf92f664
+SENDER File: 1 1
+56
+Receiving results...
+Completing tache c-3-1
+Results 1 1
+56
+0xbfd62244
+This is the result to send:1 1
+56
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+ID SAVED: 14
+NAME SAVED: p-1-3-3-1
+Copied command: multiply p-1-3-3-1 a-1-3 b-3-1
+SLAVE: Starting running tache p-1-3-3-1
+multiply p-1-3-3-1 a-1-3 b-3-1
+0xbfd62244
+This is the result to send:1 1
+7
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-3-1
+Results 1 1
+7
+ID SAVED: 17
+NAME SAVED: p-1-3-3-2
+Copied command: multiply p-1-3-3-2 a-1-3 b-3-2
+SLAVE: Starting running tache p-1-3-3-2
+multiply p-1-3-3-2 a-1-3 b-3-2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 54
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-1-2 
+SENDER: Scheduling c-1-2 to machine 1
+SENDER:Sending id tache:4 to 1!
+SENDER:Sending command tache:4 to 1!
+Sending dependence name p-1-1-1-2 tache:4 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name p-1-2-2-2 tache:4 to 1!
+0xbf92f664
+SENDER File: 1 1
+50
+Sending dependence name p-1-3-3-2 tache:4 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+0xbfd62244
+This is the result to send:1 1
+5
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-1-2
+Results 1 1
+5
+ID SAVED: 26
+NAME SAVED: p-2-3-3-2
+Copied command: multiply p-2-3-3-2 a-2-3 b-3-2
+SLAVE: Starting running tache p-2-3-3-2
+multiply p-2-3-3-2 a-2-3 b-3-2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 55
+SENDER: ntaches status: 57
+SENDER:New Tache taken c-2-2 
+SENDER: Scheduling c-2-2 to machine 1
+SENDER:Sending id tache:7 to 1!
+SENDER:Sending command tache:7 to 1!
+Sending dependence name p-2-1-1-2 tache:7 to 1!
+0xbf92f664
+SENDER File: 1 1
+12
+Sending dependence name p-2-2-2-2 tache:7 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name p-2-3-3-2 tache:7 to 1!
+0xbf92f664
+SENDER File: 1 1
+50
+0xbfd62244
+This is the result to send:1 1
+50
+
+Message Sent!
+SLAVE: Waiting to receive another task1
+Receiving results...
+Completing tache c-2-2
+Results 1 1
+50
+ID SAVED: 35
+NAME SAVED: p-3-3-3-2
+Copied command: multiply p-3-3-3-2 a-3-3 b-3-2
+SLAVE: Starting running tache p-3-3-3-2
+multiply p-3-3-3-2 a-3-3 b-3-2
+Unexpected behaviour
+SENDER: tAvailable status: 0
+SENDER: total status: 56
+SENDER: ntaches status: 57
+SENDER:New Tache taken c 
+SENDER: Scheduling c to machine 1
+SENDER:Sending id tache:2 to 1!
+SENDER:Sending command tache:2 to 1!
+Sending dependence name c-1-1 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+10
+Sending dependence name c-1-2 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+5
+Sending dependence name c-1-3 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+35
+Sending dependence name c-2-1 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+70
+Sending dependence name c-2-2 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+50
+Sending dependence name c-2-3 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Sending dependence name c-3-1 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+7
+Sending dependence name c-3-2 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+4
+Sending dependence name c-3-3 tache:2 to 1!
+0xbf92f664
+SENDER File: 1 1
+9

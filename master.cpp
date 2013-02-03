@@ -8,6 +8,8 @@
 
 # include "master.h"
 
+using namespace std;
+
 master::master() {
 }
 
@@ -28,8 +30,9 @@ void master::mainMaster(int argc,char **argv, long id, long p){
             strncpy(toOpen,argv[1],256);
         }
         travail->createNewJob(toOpen);
-        // here all tache are in tWaiting 
+        cout << "all tache are in tWaiting, ready to start\n"; 
         travail->testJobDeps();
+        cout << "available taches are now in tAvailble\n";
         // here available are in tAvailable, others are in tWaiting
         travail->run(id,p);
         

@@ -1,0 +1,7 @@
+#!/bin/bash
+make clean
+./generate_makefile.pl 2 > Makefile
+./random_matrix.pl 2 2 > a
+./random_matrix.pl 2 2 > b
+cp ../../dist/Debug/GNU-Linux-x86/mpi .
+mpirun -np 2 mpi

@@ -21,10 +21,13 @@ int main (int argc, char* argv[]){
     // Master
     if (id == 0 ){
         master *m = new master;
+        cout << "HI! I'm the master! My id is "<< id << " and I belong "<< p-1 <<"slaves \n";
+        system("sleep 3");
         m->mainMaster(argc,argv,id,p);
     }
     // esclave
     else {
+        cout << "Hi! I'm a slave! My id is "<< id << "\n";
         slave *sl = new slave;
         sl->mainSlave(argc,argv,id,p);
     }

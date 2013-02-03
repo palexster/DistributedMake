@@ -24,7 +24,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" </runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" ex</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" exampleMatrix</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" exemple</runcommandpicklistitem>
@@ -34,8 +33,9 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" Makefile</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" Makefile clean</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>mpirun -np 2 "${OUTPUT_PATH}"</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <runcommand>mpirun -np 2 "${OUTPUT_PATH}"</runcommand>
         <rundir>/home/alex/NetBeansProjects/MPI/makefiles/matrix</rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

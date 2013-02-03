@@ -21,7 +21,7 @@
 class Job : public tache{
 public:
     static std::map<const std::string, tache*> *tMap;
-    static std::map<const int, std::vector<std::string> > *FileCache;
+    static std::map<const int,std::vector<std::string>* > *FileCache;
     Job();
     Job(const Job& orig);
     virtual ~Job();
@@ -36,6 +36,7 @@ public:
     bool finalize();
     bool run(const long id, const long p);
     void checkJobs();
+    static bool CheckPresenceOnHost(int target_host,std::string file);
 private:
     
 //    std::string init;

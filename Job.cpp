@@ -10,12 +10,14 @@
 using namespace std;
 
 std::map<const std::string, tache*> *Job::tMap;
+std::map<const int, std::vector<string>* > *Job::FileCache;
 std::deque<tache*> *Job::tAvailable;
 std::deque<tache*> *Job::tWaiting;
 
 Job::Job() {
     Job::nTaches = 1;
     tMap = new std::map<const std::string, tache*>;
+    Job::FileCache = new std::map<const int, std::vector<string>* >;
 }
 
 Job::Job(const Job& orig) {
@@ -170,12 +172,88 @@ void Job::putInWaiting(tache* toAdd){
 }
 
 bool Job::run(const long id, const long p){
-    int total = 0;
+    int total = 1;
     int target_host=id;
+    string mapping[p];
     MPI::Status status;
+    cout << "tAvailable status: " <<tAvailable->size() << "\n";
+    cout << "nTaches status: " << this->nTaches << "\n";
+    cout << "p status: " << p << "\n";
+    //cout << "tAvailable status: " <<tAvailable->size() << "\n";
 #ifdef VERBOSE
     cout << "To do: " << this->nTaches << " \n";
 #endif
+    while( total < this->nTaches){
+       while(tAvailable->size() > 0){
+        tache* toRun = getNewTache();
+        if (toRun == NULL){
+            cout << "Unexpected behaviour\n";
+            return false;
+        }
+        cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+        cout << "SENDER: total status: " << total << "\n";
+        cout << "SENDER: ntaches status: " << this->nTaches << "\n";
+        //system("sleep 0.01");
+        cout << "SENDER:New Tache taken " << toRun->name << " \n";
+        target_host= ((target_host+1) % p);
+        if (target_host == 0){
+            target_host=1;
+        }
+        cout << "SENDER: Scheduling " << toRun->name << " to machine " << target_host << "\n";
+        toRun->sendTache(target_host,false);
+        mapping[target_host]=toRun->name;
+        //toRun->completed=true;
+//#endif MPI        
+#ifdef VERBOSE
+        cout << "Done: " << total+1 << " \n";
+#endif
+        total++;
+       }
+       
+       //system("sleep 1");
+       while (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
+           //MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
+           cout << "Receiving results...\n";
+           int tag = status.Get_tag();
+           int source = status.Get_source();
+           int dim = status.Get_count(MPI::CHAR);
+           if (tag != RESULT){
+               cout << "Protocol error!!!!!!!";
+               return false;
+           }
+           else {
+               cout << "Completing tache " << tMap->at(mapping[source])->name << "\n";
+               tache *t = tMap->at(mapping[source]);
+               t->completed=true;
+               char *buff=(char*)malloc(sizeof(char)*dim+1);
+               MPI::COMM_WORLD.Recv(buff,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
+               cout << "Results " << buff;
+               savefile(buff,t->name);
+           }
+           
+       }
+           this->testJobDeps();
+        
+    }
+    this->signalEnd(p,id);
+}
+
+
+
+bool Job::finalize(){
+    system(this->finalizeCommand.c_str());
+    return true;
+}
+
+void Job::signalEnd(const long p,const long id){
+    int i=1;
+    while(i<p){
+        MPI::COMM_WORLD.Send((void*)0,1,MPI::CHAR,i,DIE);
+        i++;
+    }
+
+};
+
 //#ifdef LOCAL    
 //    while(total < this->nTaches){
 //        tache* toRun = getNewTache();
@@ -183,30 +261,24 @@ bool Job::run(const long id, const long p){
 //        toRun->completed=true;
 //#endif LOCAL
 //#ifdef MPI
-    while( total < this->nTaches){
-       while(tAvailable->size() == 0){
-        tache* toRun = getNewTache();
-        target_host= target_host++ % p;
-        cout << "Scheduling " << toRun->getId() << " to machine " << target_host;
-        toRun->sendTache(target_host,false);
-        toRun->completed=true;
-//#endif MPI        
-#ifdef VERBOSE
-        cout << "Done: " << total+1 << " \n";
-#endif
-        total++;
-       }
-       while (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
-           tache *toReceive;
-           cout << "Received tache from" << status.Get_source();
-           toReceive->receiveTache(0,true);  
-       }
-        this->testJobDeps();
+
+bool Job::CheckPresenceOnHost(int target_host,string file){
+    if (FileCache->count(target_host) == 0){
+        vector<string> *listFile = new vector<string>;
+        listFile->push_back(file);
+        FileCache->insert(pair<int, vector<string>* >(target_host, listFile));
+        return false;
     }
+    else {
+        vector<string> *listFile = FileCache->at(target_host);
+        for (std::vector<string>::iterator it = listFile->begin() ; it != listFile->end(); ++it){
+            if (file.compare(*it) == 0){
+                return true;
+            }
+        }
+        listFile->push_back(file);
+        //map.insert(pair<int, vector<string>* >(target_host, listFile));
+        return false;
+    }
+    ;
 }
-
-bool Job::finalize(){
-    system(this->finalizeCommand.c_str());
-    return true;
-}
-

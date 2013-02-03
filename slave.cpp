@@ -8,6 +8,8 @@
 #include "slave.h"
 #include "tache.h"
 
+using namespace std;
+
 slave::slave() {
 }
 
@@ -18,12 +20,16 @@ slave::~slave() {
 }
 
 void slave::mainSlave(int argc,char **argv, long id, long p){
-    bool end;
+    bool end=true;
     while (end){
-        tache *tache = new tache;
-        end = tache->receiveTache(0,false);
-        tache->run();
-        tache->sendTache(0,true);
+        tache *t = new tache;
+        cout << "SLAVE: Waiting to receive another task"<< id << "\n";
+        end = t->receiveTache(0,false);
+        cout << "SLAVE: Starting running tache " << t->name << "\n";
+        t->run();
+        t->sendTache(0,true);
+        delete t;
+        end=true;
     }
 }
 
