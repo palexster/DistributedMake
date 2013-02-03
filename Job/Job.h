@@ -21,6 +21,7 @@
 class Job : public tache{
 public:
     static std::map<const std::string, tache*> *tMap;
+    static std::map<const int, std::vector<std::string> > *FileCache;
     Job();
     Job(const Job& orig);
     virtual ~Job();
@@ -31,6 +32,7 @@ public:
     static void scheduleNewTache(tache* toAdd);
     static tache* getWaitingTache();
     static void putInWaiting(tache* toAdd);
+    void signalEnd(const long p,const long id);
     bool finalize();
     bool run(const long id, const long p);
     void checkJobs();
