@@ -1,3 +1,5 @@
+
+
 /* 
  * File:   Job.cpp
  * Author: alex
@@ -110,8 +112,6 @@ void Job::addTacheToMap(tache* tache1){
 bool Job::testJobDeps(){
     bool result;
     long i=0;
-    //for (iter = tWaiting->begin(); iter != tWaiting->end(); ++iter){
-    //control = tWaiting->end();
     if (tWaiting->size() == 0){
         return false;
     }
@@ -122,11 +122,6 @@ bool Job::testJobDeps(){
         if (toEvaluate->completed == false){
             if (toEvaluate->testTacheDeps()){
              scheduleNewTache(toEvaluate);
-#ifdef VERBOSE             
-             cout << "Tache id " << toEvaluate->command << " \n";
-             cout << "Tache ready: " << toEvaluate->command << " \n";
-             cout << "Dimension of tWaiting " << tWaiting->size() << " \n";
-#endif             
             }
             else {
                 putInWaiting(toEvaluate);
@@ -188,7 +183,6 @@ bool Job::run(const long id, const long p){
     cout << "p status: " << p << "\n";
 
     while(target_host<p){
-        
         tache* toRun = getNewTache();
         if (toRun == NULL){
             cout << "Unexpected behaviour\n";
@@ -207,38 +201,42 @@ bool Job::run(const long id, const long p){
         total++;
        }
     
-    while( total < this->nTaches-1){
-       //this->testJobDeps();
+    while( totalReceived < this->nTaches-1){
+      
        
-       while(totalReceived < total && totalReceived < nTaches){
+//       if(totalReceived < total && totalReceived < nTaches){
            cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
            cout << "SENDER: total status: " << total << "\n";
            cout << "SENDER: totalReceived status: " << totalReceived << "\n";
            cout << "SENDER: ntaches status: " << this->nTaches << "\n";
-           MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
-           
+          if (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
            int tag = status.Get_tag();
            int source = status.Get_source();
            int dim = status.Get_count(MPI::CHAR);
-           cout << "SENDER: Receiving results from" << source <<" \n";
+//           cout << "SENDER: Receiving results from" << source <<" \n";
            if (tag != RESULT){
                cout << "Protocol error!";
                return false;
            }
            else {
-               cout << "SENDER: Completing tache " << tMap->at(mapping[source])->name << "\n";
+//               cout << "SENDER: Completing tache " << tMap->at(mapping[source])->name << "\n";
                tache *t = tMap->at(mapping[source]);
                t->completed=true;
                char *buff=(char*)malloc(sizeof(char)*dim+1);
                MPI::COMM_WORLD.Recv(buff,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
                savefile(buff,t->name);
-               this->testJobDeps();
+               this->notifyDependant(t);
+//               if ( tAvailable->size() < p){
+               //cout << "Refill 1\n"  ;
+//               }
                totalReceived++;
                master::SetFree(source);
+               free(buff);
            }
-           
-
-           
+//           if (tAvailable->size() == 0){
+//                this->testJobDeps();
+//           }
+//           
            tache* toRun;
            if ( tAvailable->size() > 0){
                toRun = getNewTache();
@@ -248,26 +246,30 @@ bool Job::run(const long id, const long p){
                total++;
            }
            
-        }
-
+      }
+//        if ( tAvailable->size() < 3*p){
+        //cout << "Refill 2\n"  ;
+        //this->testJobDeps();
+//        }
            
-           while (tAvailable->size() > 0){
-               tache* toRun = getNewTache();
-                       if (toRun == NULL){
-                                cout << "Unexpected behaviour\n";
-                                return false;
-                }
-               if ((candidate = master::GetFree()) == 0 ){
-                   break;
-               }
-               toRun->sendTache(candidate,false);
-               mapping[candidate]=toRun->name;
-               master::SetBusy(candidate);
-               total++;
-           }
+//           while (tAvailable->size() > 0){
+//               tache* toRun = getNewTache();
+//                       if (toRun == NULL){
+//                                cout << "Unexpected behaviour\n";
+//                                return false;
+//                }
+//               if ((candidate = master::GetFree()) == 0 ){
+//                   break;
+//               }
+//               toRun->sendTache(candidate,false);
+//               mapping[candidate]=toRun->name;
+//               master::SetBusy(candidate);
+//               total++;
+//           }
        
         
     }
+    this->finalizeCommand;
     cout << "The job is done! Bye!";
     this->signalEnd(p,id);
 }
@@ -288,6 +290,26 @@ void Job::signalEnd(const long p,const long id){
     }
 };
 
+
+void Job::ComputeDependant(){
+    map<string, tache*>::iterator p;
+    vector<string>::iterator it;
+    cout << "Map DIMENSION " << tMap->size() << "\n";
+   for(p = tMap->begin(); p != tMap->end(); p++) {
+       for(it = p->second->dependencies.begin(); it != p->second->dependencies.end(); it++) {
+           cout << p->first << "\n";
+            if (tMap->count(*it) == 0 ){
+                p->second->TobeTaches--;
+                if (TobeTaches== 0){
+                continue;
+            }        
+           tMap->at(*it)->dependant.push_back(p->first);
+           cout << p->first << "é dipendente da" << *it << "\n";
+       }
+     }
+}
+
+
 //#ifdef LOCAL    
 //    while(total < this->nTaches){
 //        tache* toRun = getNewTache();
@@ -297,7 +319,7 @@ void Job::signalEnd(const long p,const long id){
 //#ifdef MPI
 
 bool Job::CheckPresenceOnHost(int target_host,string file){
-    cout << "SENDER: Cache result for "<< target_host << "\n";
+    //cout << "SENDER: Cache result for "<< target_host << "\n";
     if (FileCache->count(target_host) == 0){
         vector<string> *listFile = new vector<string>;
         listFile->push_back(file);
@@ -317,3 +339,19 @@ bool Job::CheckPresenceOnHost(int target_host,string file){
     }
 }
 
+void Job::notifyDependant(tache *t){
+    vector<string>::iterator it;
+    //cout << "tache name " << t->name << "\n";
+    for(it = t->dependant.begin(); it != t->dependant.end(); it++) {
+        //cout << "Mes dependants " << (*it) << "\n";
+    }    
+    for(it = t->dependant.begin(); it != t->dependant.end(); it++) {
+        if (tMap->count(*it) == 0 ){
+            continue;
+        }
+           tMap->at(*it)->TobeTaches--;
+           if (tMap->at(*it)->TobeTaches == 0){
+               Job::scheduleNewTache(tMap->at(*it));
+           }
+       }
+}
