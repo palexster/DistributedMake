@@ -29,6 +29,7 @@ void master::mainMaster(int argc,char **argv, long id, long p){
         master::dimension=p;
         master::id=id;
         master::nodes=(int*)malloc((sizeof(int)*p));
+        memset(nodes,0,p);
         Job* travail=new Job;
         if (argc == 1){
             strncpy(toOpen,"Makefile\0",9);
@@ -52,19 +53,21 @@ void master::mainMaster(int argc,char **argv, long id, long p){
 }
         
         void master::SetBusy(int id){
+            cout << "SetBusy callded for node " << id << "\n";
             master::nodes[id]=1;
         }
         
         void master::SetFree(int id){
+            cout << "SetFree callded for node " << id << "\n";
             master::nodes[id]=0;
         }
         
         int master::GetFree(){
             int i=0;
-            while (i<=dimension && nodes[i]){
+            while (i<=dimension && nodes[i]==1){
                 i++;
             }
-            if (i=dimension){
+            if (i==dimension){
                 return 0;
             }
             else {

@@ -213,7 +213,6 @@ bool tache::sendTache(long target_host,bool results){
             sendData(buff,target_host,tag);
          }
         sendData("END",target_host,END);
-        cout << "Ne sono fuori!!!!!!!!!!!!!!!!";
     }
     
 }

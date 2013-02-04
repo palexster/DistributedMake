@@ -6,6 +6,7 @@
  */
 
 # include "Job/Job.h"
+#include "master.h"
 
 using namespace std;
 
@@ -44,7 +45,6 @@ void Job::createNewJob(std::string name){
             vector<string> tokens = tokenize(tokenFirst[0],":");
             cout << tokens[0] << " \n";
             this->name = tokens[0];
-            //this->name = this->name.substr(this->name.length()-2);
             cout << this->name << "\n";
             tokenFirst.erase(tokenFirst.begin());
             dimension = tokenFirst.size();
@@ -177,9 +177,10 @@ void Job::putInWaiting(tache* toAdd){
 bool Job::run(const long id, const long p){
     int total = 0;
     int totalReceived=0;
-    int target_host=id;
+    int target_host=1;
     string mapping[p];
     int busy[p];
+    int candidate;
     memset(busy,0,p);
     MPI::Status status;
     cout << "tAvailable status: " <<tAvailable->size() << "\n";
@@ -188,76 +189,82 @@ bool Job::run(const long id, const long p){
 
 
     while(target_host<p){
+        
         tache* toRun = getNewTache();
         if (toRun == NULL){
             cout << "Unexpected behaviour\n";
             return false;
         }
-        cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
-        cout << "SENDER: total status: " << total << "\n";
-        cout << "SENDER: totalReceived status: " << totalReceived << "\n";
-        cout << "SENDER: ntaches status: " << this->nTaches << "\n";
-        cout << "SENDER:New Tache taken " << toRun->name << " \n";
-        cout << "SENDER: Scheduling " << toRun->name << " to machine " << target_host << "\n";
+//        cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+//        cout << "SENDER: total status: " << total << "\n";
+//        cout << "SENDER: totalReceived status: " << totalReceived << "\n";
+//        cout << "SENDER: ntaches status: " << this->nTaches << "\n";
+//        cout << "SENDER:New Tache taken " << toRun->name << " \n";
+//        cout << "SENDER: Scheduling " << toRun->name << " to machine " << target_host << "\n";
         toRun->sendTache(target_host,false);
         mapping[target_host]=toRun->name;
+        master::SetBusy(target_host);
         target_host++;
         total++;
        }
     
-    while( total < this->nTaches && total < nTaches){
+    while( total < this->nTaches-1){
        target_host=1;
-
        //this->testJobDeps();
-       //system("sleep 1");
-       while(totalReceived <= total && totalReceived < (nTaches)){
+       while(totalReceived < total && totalReceived < (nTaches)){
+           
            MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
-           cout << "Receiving results...\n";
+           cout << "SENDER: Receiving results...\n";
            int tag = status.Get_tag();
            int source = status.Get_source();
            int dim = status.Get_count(MPI::CHAR);
+           
            if (tag != RESULT){
                cout << "Protocol error!";
                return false;
            }
            else {
-               cout << "Completing tache " << tMap->at(mapping[source])->name << "\n";
+               cout << "SENDER: Completing tache " << tMap->at(mapping[source])->name << "\n";
                tache *t = tMap->at(mapping[source]);
                t->completed=true;
                char *buff=(char*)malloc(sizeof(char)*dim+1);
-               cout << "Mi addormento qua";
                MPI::COMM_WORLD.Recv(buff,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
-               cout << "Results " << buff;
                savefile(buff,t->name);
                this->testJobDeps();
                totalReceived++;
+               master::SetFree(source);
            }
-           if (tAvailable->size() > 0){
+           
+           tache* toRun;
+           if ( tAvailable->size() > 0){
                cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
                cout << "SENDER: total status: " << total << "\n";
                cout << "SENDER: totalReceived status: " << totalReceived << "\n";
                cout << "SENDER: ntaches status: " << this->nTaches << "\n";
-               tache* toRun = getNewTache();
-               toRun->sendTache(source,false);
-               mapping[source]=toRun->name;
-               total++;
-           }
-           while (tAvailable->size() > 0){
-               cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
-               cout << "SENDER: total status: " << total << "\n";
-               cout << "SENDER: totalReceived status: " << totalReceived << "\n";
-               cout << "SENDER: ntaches status: " << this->nTaches << "\n";
-               tache* toRun = getNewTache();
+               toRun = getNewTache();
                toRun->sendTache(source,false);
                mapping[source]=toRun->name;
                total++;
            }
            
-       }
+        }
+
+           
+           while (tAvailable->size() > 0){
+               tache* toRun = getNewTache();
+               if ((candidate = master::GetFree()) == 0 ){
+                   break;
+               }
+               toRun->sendTache(candidate,false);
+               mapping[candidate]=toRun->name;
+               total++;
+           }
+           
        
         
     }
-    this->finalize();
+    //this->finalize();
+    cout << "DIE DIE DIE!!!!";
     this->signalEnd(p,id);
 }
 
@@ -303,5 +310,4 @@ bool Job::CheckPresenceOnHost(int target_host,string file){
         //map.insert(pair<int, vector<string>* >(target_host, listFile));
         return false;
     }
-    ;
 }
