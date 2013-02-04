@@ -29,6 +29,7 @@
 # include <fstream>
 # include <iostream>
 # include <iterator>
+# include <unistd.h>
 # include <sstream>
 
 #define ID_SEND 0
@@ -39,6 +40,7 @@
 #define RESULT 5
 #define DIE 6
 #define NAME_SEND 7
+
 class tache {
 public:
     bool init;

@@ -6,7 +6,7 @@
  */
 
 #include "slave.h"
-#include "tache.h"
+
 
 using namespace std;
 
@@ -20,6 +20,8 @@ slave::~slave() {
 }
 
 void slave::mainSlave(int argc,char **argv, long id, long p){
+    system("mkdir /tmp/alex"+id);
+    chdir("/tmp/alex");
     bool end=true;
     bool status;
     while (end == true){
@@ -33,8 +35,8 @@ void slave::mainSlave(int argc,char **argv, long id, long p){
         status = t->run(id);
         if (status == false){
             cout << "SLAVE" << id << ": Houston, we have a problem\n";
-            cout << "SLAVE" << id << ": ID of the slave" << id <"\n"; 
-            cout << "SLAVE" << id << ": The TACHE " << t->name <"\n";
+//            cout << "SLAVE" << id << ": ID of the slave" << id <"\n"; 
+//            cout << "SLAVE" << id << ": The TACHE " << t->name <"\n";
            
         }
         t->sendTache(0,true);

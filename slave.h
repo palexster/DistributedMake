@@ -8,6 +8,9 @@
 #ifndef SLAVE_H
 #define	SLAVE_H
 
+#include "tache.h"
+#include <unistd.h>
+
 class slave {
 public:
     slave();
