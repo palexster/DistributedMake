@@ -161,9 +161,12 @@ bool tache::testSingleDep(string filename)
 
 
 
-bool tache::run(){
+bool tache::run(int id){
     cout << this->command << "\n";
-    system(this->command.c_str());
+    if (system(this->command.c_str()) != 0){
+        cout << "SLAVE" << id << "Return value < 0\n";
+        return false;
+    }
     return true;
 }
 
@@ -178,21 +181,20 @@ bool tache::sendTache(long target_host,bool results){
     if (results == true){
         //cout << "Sending results:" << this->getId() << " to source!\n";
         string result = convertFile(this->name);
-        cout << "This is the result to send:" << result << "\n";
+        //cout << "This is the result to send:" << result << "\n";
         sendData(result,target_host,RESULT);
-        cout << "Message Sent!\n";
+        //cout << "Message Sent!\n";
         return true;
     }
     else {
         int tag = ID_SEND;
         buff = tache::toString(this->id);
-        cout << "SENDER:Sending id tache:" << this->getId() << " to " << target_host <<"!\n";
+        cout << "SENDER: Sending id tache:" << this->getId() << " to " << target_host <<"!\n";
         sendData(buff,target_host,tag);
         sendData(this->name,target_host,NAME_SEND);
-        //MPI::COMM_WORLD.Send((void*)buff.c_str(),buff.size(),MPI::CHAR,target_host,tag);
         // send command
         tag = COMMAND_SEND;
-        cout << "SENDER:Sending command tache:" << this->getId() << " to " << target_host <<"!\n";
+        cout << "SENDER: Sending command tache:" << this->getId() << " to " << target_host <<"!\n";
         //MPI::COMM_WORLD.Send((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
         sendData(this->command,target_host,tag);
         vector<string>::iterator it;
@@ -200,15 +202,15 @@ bool tache::sendTache(long target_host,bool results){
             tag = NDEP_SEND;
             buff = (*it); 
             
-//            if (Job::CheckPresenceOnHost(target_host,buff) == true){
-//                cout << "SENDER: The file is already present!!!!!!!!!!!\n";
-//                continue;
-//            }
-//            
+            if (Job::CheckPresenceOnHost(target_host,buff) == true){
+                cout << "SENDER: The file is already present!!!!!!!!!!!\n";
+                continue;
+            }
+            
             sendData(buff,target_host,tag);
-            cout << "Sending dependence name " << buff <<" tache:" << this->getId() << " to " << target_host <<"!\n";
+            cout << "SENDER: Sending dependence name " << buff <<" tache:" << this->getId() << " to " << target_host <<"!\n";
             buff = convertFile(*it);
-            cout << "SENDER File: " << buff < "\n";
+            //cout << "SENDER File: " << buff < "\n";
             tag = DEP_SEND;
             sendData(buff,target_host,tag);
          }
@@ -217,7 +219,7 @@ bool tache::sendTache(long target_host,bool results){
     
 }
 
-bool tache::receiveTache(long target_host,bool results){
+bool tache::receiveTache(long target_host,bool results,long id){
     // Send preliminary informations
     // send id
     
@@ -239,16 +241,15 @@ bool tache::receiveTache(long target_host,bool results){
         switch (tag){
             case ID_SEND:
                     this->id=atoi(b);
-                    cout << "ID SAVED: " << this->id << "\n";
+                    cout << "SLAVE" << id << ": TacheID SAVED: " << this->id << "\n";
                     break;
             case NAME_SEND:
                     this->name=b;
-                    cout << "NAME SAVED: " << this->name << "\n";
+                    cout << "SLAVE" << id << ": NAME SAVED: " << this->name << "\n";
                     break;
             case COMMAND_SEND:
-                    //cout << "Copying command...\n";
                     this->command = buff;
-                    cout << "Copied command: " << this->command <<"\n";
+                    cout << "SLAVE" << id << ": Copied command: " << this->command <<"\n";
                     break;
             case RESULT:
                 MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
@@ -259,26 +260,20 @@ bool tache::receiveTache(long target_host,bool results){
             case NDEP_SEND:
                 this->dependencies.push_back(buff);
                 string namefile = string((char*)b);
+                cout << "SLAVE" << id << ": Receiving dep name: " << namefile <<"\n";
                 MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
                 dimension = status.Get_count(MPI::CHARACTER);
                 char *file =(char*)malloc(sizeof(char)*dimension+1);
                 int dim=dimension;
+                cout << "SLAVE" << id << ": Receiving dep body: " << namefile <<"\n";
                 MPI::COMM_WORLD.Recv(file,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
                 file[dimension]='\0';
                 savefile(file,namefile);
                 break;
         }
     } while (status.Get_tag() != END);
-    //
     return true;
 }
-
-
-
-//
-//bool tache::receiveTache(long target_host,bool results){
-//    
-//}
 
 
 
@@ -288,7 +283,6 @@ string tache::convertFile(string name){
             return NULL;
         }
         std::ifstream in_file(name.c_str());
-        cout << in_file << "\n";
         std::string the_str(std::istreambuf_iterator<char>( in_file),(std::istreambuf_iterator<char>()));
         //cout << "Insitde convert:" << the_str << "\n";
         return the_str;
@@ -324,14 +318,21 @@ void tache::sendData(string data, int dest, int tag)
     char* data_copy = (char*)malloc(sizeof(char)*(data_size));
     strncpy(data_copy, data.c_str(), data_size);
     do {
-    //cout << "PRE-Sending data: " << data_copy << "\n size " << data_size << "dest" << dest << "tag " << tag << "\n";
-    req = MPI::COMM_WORLD.Isend(data_copy, data_size, MPI::CHAR, dest,tag);
-    
-    req.Wait(status);
-    if ((error = status.Get_error())){
-        cout << "SENT IMPOSSIBLE\n";
-        }
+        req = MPI::COMM_WORLD.Isend(data_copy, data_size, MPI::CHAR, dest,tag);
+        req.Wait(status);
+        if ((error = status.Get_error())){
+            cout << "SENT IMPOSSIBLE\n";
+            }
     } while (error != 0);
-    //cout << "POST-Sending data: " << data_copy << "\n size " << data_size << "dest" << dest << "tag " << tag << "\n";
 };
 
+void tache::ResultDemultiplexing(const int tag, int *id, int *real_tag){
+    *id = tag/10;
+    *real_tag = tag % 10;
+    return; 
+}
+
+int tache::ResultMultiplexing(const int id,const int real_tag){
+    int tag = id * 10 + real_tag;
+    return tag; 
+}

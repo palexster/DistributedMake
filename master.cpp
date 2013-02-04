@@ -53,24 +53,26 @@ void master::mainMaster(int argc,char **argv, long id, long p){
 }
         
         void master::SetBusy(int id){
-            cout << "SetBusy callded for node " << id << "\n";
+            cout << "SENDER: SetBusy callded for node " << id << "\n";
             master::nodes[id]=1;
         }
         
         void master::SetFree(int id){
-            cout << "SetFree callded for node " << id << "\n";
+            cout << "SENDER: SetFree callded for node " << id << "\n";
             master::nodes[id]=0;
         }
         
         int master::GetFree(){
-            int i=0;
+            int i=1;
             while (i<=dimension && nodes[i]==1){
                 i++;
             }
             if (i==dimension){
+                cout << "SENDER: GetFree --> "<< 0 << " returned\n"; 
                 return 0;
             }
             else {
+                cout << "SENDER: GetFree --> "<< i << " returned\n";
                 return i;
             }
         }

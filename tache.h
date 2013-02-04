@@ -51,12 +51,12 @@ public:
     static tache* createNewTache(std::string firstLine,std::string secondLine);
     static long getNewId();
     bool testTacheDeps();
-    bool run();
+    bool run(int id);
     static bool testSingleDep(std::string filename);
     bool operator < (const tache other);
     bool operator ==(const tache other);
     tache& operator =(const tache& cSource);
-    bool receiveTache(long target_host, bool results);
+    bool receiveTache(long target_host, bool results, long id);
     bool completed;
     void savefile(char* content,std::string name);
     std::string command;
@@ -64,6 +64,9 @@ public:
     bool sendTache(long toRun, bool results);
     static std::string toString(long i);
     static std::string convertFile(std::string name);
+    static void ResultDemultiplexing(const int tag, int *id, int *real_tag);
+    static int ResultMultiplexing(const int id,const int real_tag);
+            
     tache();
 protected:
     static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);

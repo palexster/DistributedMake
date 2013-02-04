@@ -187,7 +187,6 @@ bool Job::run(const long id, const long p){
     cout << "nTaches status: " << this->nTaches << "\n";
     cout << "p status: " << p << "\n";
 
-
     while(target_host<p){
         
         tache* toRun = getNewTache();
@@ -209,16 +208,19 @@ bool Job::run(const long id, const long p){
        }
     
     while( total < this->nTaches-1){
-       target_host=1;
        //this->testJobDeps();
-       while(totalReceived < total && totalReceived < (nTaches)){
-           
+       
+       while(totalReceived < total && totalReceived < nTaches){
+           cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+           cout << "SENDER: total status: " << total << "\n";
+           cout << "SENDER: totalReceived status: " << totalReceived << "\n";
+           cout << "SENDER: ntaches status: " << this->nTaches << "\n";
            MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
-           cout << "SENDER: Receiving results...\n";
+           
            int tag = status.Get_tag();
            int source = status.Get_source();
            int dim = status.Get_count(MPI::CHAR);
-           
+           cout << "SENDER: Receiving results from" << source <<" \n";
            if (tag != RESULT){
                cout << "Protocol error!";
                return false;
@@ -235,15 +237,14 @@ bool Job::run(const long id, const long p){
                master::SetFree(source);
            }
            
+
+           
            tache* toRun;
            if ( tAvailable->size() > 0){
-               cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
-               cout << "SENDER: total status: " << total << "\n";
-               cout << "SENDER: totalReceived status: " << totalReceived << "\n";
-               cout << "SENDER: ntaches status: " << this->nTaches << "\n";
                toRun = getNewTache();
                toRun->sendTache(source,false);
                mapping[source]=toRun->name;
+               master::SetBusy(source);
                total++;
            }
            
@@ -252,19 +253,22 @@ bool Job::run(const long id, const long p){
            
            while (tAvailable->size() > 0){
                tache* toRun = getNewTache();
+                       if (toRun == NULL){
+                                cout << "Unexpected behaviour\n";
+                                return false;
+                }
                if ((candidate = master::GetFree()) == 0 ){
                    break;
                }
                toRun->sendTache(candidate,false);
                mapping[candidate]=toRun->name;
+               master::SetBusy(candidate);
                total++;
            }
-           
        
         
     }
-    //this->finalize();
-    cout << "DIE DIE DIE!!!!";
+    cout << "The job is done! Bye!";
     this->signalEnd(p,id);
 }
 
@@ -293,6 +297,7 @@ void Job::signalEnd(const long p,const long id){
 //#ifdef MPI
 
 bool Job::CheckPresenceOnHost(int target_host,string file){
+    cout << "SENDER: Cache result for "<< target_host << "\n";
     if (FileCache->count(target_host) == 0){
         vector<string> *listFile = new vector<string>;
         listFile->push_back(file);
@@ -311,3 +316,4 @@ bool Job::CheckPresenceOnHost(int target_host,string file){
         return false;
     }
 }
+

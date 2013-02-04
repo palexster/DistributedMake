@@ -1,7 +1,8 @@
 #!/bin/bash
 make clean
-./generate_makefile.pl 10 > Makefile
-./random_matrix.pl 10 10 > a
-./random_matrix.pl 10 10 > b
+./generate_makefile.pl 5 > Makefile
+#./random_matrix.pl 5 5 > a
+#./random_matrix.pl 5 5 > b
 cp ../../dist/Debug/GNU-Linux-x86/mpi .
-mpirun -np 10 mpi
+mpirun -np 5 valgrind ./mpi
+
