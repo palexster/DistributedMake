@@ -43,7 +43,7 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     toAdd->name=firstTokens[0];
     toAdd->completed=false;
     //unsigned pos = toAdd->name.find("\t");
-    cout << "tache name: " << toAdd->name << "\n";
+    //cout << "tache name: " << toAdd->name << "\n";
     //toAdd->name=toAdd->name.substr(0,pos);
     if (firstTokens.size() > 1){
     if (firstTokens[1].substr(0).compare("\t")){
@@ -55,6 +55,7 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     }
     int i=0;
     int nDep = depTokens.size();
+    toAdd->TobeTaches=nDep;
     while(i<nDep){
         #ifdef VERBOSE
         cout << "Dependency: " << depTokens[i] << "\n";
@@ -68,7 +69,7 @@ tache* tache::createNewTache(string firstLine,string secondLine){
     }
     }
     vector<string> command = tokenize(secondLine,"\t");
-    cout << "Command: " << command[0] << "\n" ;
+    //cout << "Command: " << command[0] << "\n" ;
     toAdd->command=command[0];
     return toAdd;
 }
@@ -143,6 +144,9 @@ bool tache::testTacheDeps()
           if (!this->testSingleDep(str)){
                     return false;
           }
+          else {
+              this->TobeTaches--;
+          }
       }
     return true;
 };
@@ -162,7 +166,7 @@ bool tache::testSingleDep(string filename)
 
 
 bool tache::run(int id){
-    cout << this->command << "\n";
+    //cout << this->command << "\n";
     if (system(this->command.c_str()) != 0){
         cout << "SLAVE" << id << "Return value < 0\n";
         return false;
@@ -189,12 +193,12 @@ bool tache::sendTache(long target_host,bool results){
     else {
         int tag = ID_SEND;
         buff = tache::toString(this->id);
-        cout << "SENDER: Sending id tache:" << this->getId() << " to " << target_host <<"!\n";
+        //cout << "SENDER: Sending id tache:" << this->getId() << " to " << target_host <<"!\n";
         sendData(buff,target_host,tag);
         sendData(this->name,target_host,NAME_SEND);
         // send command
         tag = COMMAND_SEND;
-        cout << "SENDER: Sending command tache:" << this->getId() << " to " << target_host <<"!\n";
+        //cout << "SENDER: Sending command tache:" << this->getId() << " to " << target_host <<"!\n";
         //MPI::COMM_WORLD.Send((void *)this->command.c_str(),this->command.size(),MPI::CHAR,target_host,tag);
         sendData(this->command,target_host,tag);
         vector<string>::iterator it;
@@ -203,12 +207,12 @@ bool tache::sendTache(long target_host,bool results){
             buff = (*it); 
             
             if (Job::CheckPresenceOnHost(target_host,buff) == true){
-                cout << "SENDER: The file is already present!!!!!!!!!!!\n";
+                //cout << "SENDER: The file is already present!!!!!!!!!!!\n";
                 continue;
             }
             
             sendData(buff,target_host,tag);
-            cout << "SENDER: Sending dependence name " << buff <<" tache:" << this->getId() << " to " << target_host <<"!\n";
+            //cout << "SENDER: Sending dependence name " << buff <<" tache:" << this->getId() << " to " << target_host <<"!\n";
             buff = convertFile(*it);
             //cout << "SENDER File: " << buff < "\n";
             tag = DEP_SEND;
@@ -241,15 +245,15 @@ bool tache::receiveTache(long target_host,bool results,long id){
         switch (tag){
             case ID_SEND:
                     this->id=atoi(b);
-                    cout << "SLAVE" << id << ": TacheID SAVED: " << this->id << "\n";
+                    //cout << "SLAVE" << id << ": TacheID SAVED: " << this->id << "\n";
                     break;
             case NAME_SEND:
                     this->name=b;
-                    cout << "SLAVE" << id << ": NAME SAVED: " << this->name << "\n";
+                    //cout << "SLAVE" << id << ": NAME SAVED: " << this->name << "\n";
                     break;
             case COMMAND_SEND:
                     this->command = buff;
-                    cout << "SLAVE" << id << ": Copied command: " << this->command <<"\n";
+                    //cout << "SLAVE" << id << ": Copied command: " << this->command <<"\n";
                     break;
             case RESULT:
                 MPI::COMM_WORLD.Recv((void*)b,dimension,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
@@ -260,22 +264,29 @@ bool tache::receiveTache(long target_host,bool results,long id){
             case NDEP_SEND:
                 this->dependencies.push_back(buff);
                 string namefile = string((char*)b);
-                cout << "SLAVE" << id << ": Receiving dep name: " << namefile <<"\n";
+                //cout << "SLAVE" << id << ": Receiving dep name: " << namefile <<"\n";
                 MPI::COMM_WORLD.Probe(MPI::ANY_SOURCE,MPI::ANY_TAG,status);
                 dimension = status.Get_count(MPI::CHARACTER);
                 char *file =(char*)malloc(sizeof(char)*dimension+1);
                 int dim=dimension;
-                cout << "SLAVE" << id << ": Receiving dep body: " << namefile <<"\n";
                 MPI::COMM_WORLD.Recv(file,dim,MPI::CHAR,MPI::ANY_SOURCE,MPI::ANY_TAG);
-                file[dimension]='\0';
+                //cout << "SLAVE" << id << ": Received dep body: " << namefile <<"\n";
                 savefile(file,namefile);
+                if (testSingleDep(namefile)==false){
+                    cout << "SLAVE" << id << ": The file has not been written!\n";
+                    cout << "SLAVE" << id << ": Problematic file: " << namefile <<"\n";
+                    cout << "SLAVE" << id << ": contenuto non scritto" << file << "\n";
+                    savefile(file,namefile);
+                }
+                file[dimension]='\0';
                 break;
         }
     } while (status.Get_tag() != END);
     return true;
 }
 
-
+//bool tache::receiveTache(long target_host,bool results,long id){}
+    
 
 string tache::convertFile(string name){
         //cout << "Insitde convert:" << name << "\n";
@@ -284,7 +295,6 @@ string tache::convertFile(string name){
         }
         std::ifstream in_file(name.c_str());
         std::string the_str(std::istreambuf_iterator<char>( in_file),(std::istreambuf_iterator<char>()));
-        //cout << "Insitde convert:" << the_str << "\n";
         return the_str;
 }
 
@@ -317,13 +327,8 @@ void tache::sendData(string data, int dest, int tag)
     size_t data_size = data.size() + 1;
     char* data_copy = (char*)malloc(sizeof(char)*(data_size));
     strncpy(data_copy, data.c_str(), data_size);
-    do {
-        req = MPI::COMM_WORLD.Isend(data_copy, data_size, MPI::CHAR, dest,tag);
-        req.Wait(status);
-        if ((error = status.Get_error())){
-            cout << "SENT IMPOSSIBLE\n";
-            }
-    } while (error != 0);
+    req = MPI::COMM_WORLD.Isend(data_copy, data_size, MPI::CHAR, dest,tag);
+    //req.Wait(status);
 };
 
 void tache::ResultDemultiplexing(const int tag, int *id, int *real_tag){

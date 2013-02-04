@@ -22,11 +22,14 @@ int main (int argc, char* argv[]){
     if (id == 0 ){
         master *m = new master;
         cout << "HI! I'm the master! My id is "<< id << " and I belong "<< p-1 <<"slaves \n";
-        //system("sleep 3");
         m->mainMaster(argc,argv,id,p);
     }
     // esclave
     else {
+        system("rm -rf /tmp/alex2/");
+        system("mkdir /tmp/alex2 2>/dev/null");
+        chdir("/tmp/alex2");
+        //system("pwd");
         cout << "Hi! I'm a slave! My id is "<< id << "\n";
         slave *sl = new slave;
         sl->mainSlave(argc,argv,id,p);

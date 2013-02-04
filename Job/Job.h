@@ -36,14 +36,19 @@ public:
     bool finalize();
     bool run(const long id, const long p);
     void checkJobs();
+    void tryTestJobs(Job *t);
+    void ComputeDependant();
+    void notifyDependant(tache *t);
     static bool CheckPresenceOnHost(int target_host,std::string file);
+    static std::deque<tache*> *tWaiting;
+    static std::deque<tache*> *tAvailable;
 private:
     
 //    std::string init;
     std::string finalizeCommand;
     std::string testCommand;
-    static std::deque<tache*> *tAvailable;
-    static std::deque<tache*> *tWaiting;
+    
+
 };
 
 typedef std::pair<std::string, tache*> Mappair;

@@ -22,7 +22,6 @@ AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -61,41 +60,41 @@ LDLIBSOPTIONS=-lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/slave.o: slave.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/slave.o slave.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/slave.o slave.cpp
 
 ${OBJECTDIR}/tache.o: tache.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/tache.o tache.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/tache.o tache.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 ${OBJECTDIR}/master.o: master.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/master.o master.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/master.o master.cpp
 
 ${OBJECTDIR}/FileRead.o: FileRead.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileRead.o FileRead.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/FileRead.o FileRead.cpp
 
 ${OBJECTDIR}/Job.o: Job.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Job.o Job.cpp
+	$(COMPILE.cc) -O3 -MMD -MP -MF $@.d -o ${OBJECTDIR}/Job.o Job.cpp
 
 # Subprojects
 .build-subprojects:
@@ -103,7 +102,7 @@ ${OBJECTDIR}/Job.o: Job.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake
 
 # Subprojects
 .clean-subprojects:

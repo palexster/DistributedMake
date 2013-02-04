@@ -24,6 +24,8 @@ master::~master() {
 }
 
 void master::mainMaster(int argc,char **argv, long id, long p){
+        pthread_t bet;
+        pthread_attr_t att;
         int done;
         char toOpen[256];
         master::dimension=p;
@@ -38,11 +40,15 @@ void master::mainMaster(int argc,char **argv, long id, long p){
             strncpy(toOpen,argv[1],256);
         }
         travail->createNewJob(toOpen);
+        
         cout << "all tache are in tWaiting, ready to start\n"; 
-        travail->testJobDeps();
-        cout << "available taches are now in tAvailble\n";
+        //cout << "available taches are now in tAvailble\n";
         // here available are in tAvailable, others are in tWaiting
+        travail->testJobDeps();
+        travail->ComputeDependant();
         travail->run(id,p);
+        
+        
         
         if (argc == 3){
                 if (strcmp(argv[2],"clean") == 0){
@@ -53,12 +59,12 @@ void master::mainMaster(int argc,char **argv, long id, long p){
 }
         
         void master::SetBusy(int id){
-            cout << "SENDER: SetBusy callded for node " << id << "\n";
+            //cout << "SENDER: SetBusy callded for node " << id << "\n";
             master::nodes[id]=1;
         }
         
         void master::SetFree(int id){
-            cout << "SENDER: SetFree callded for node " << id << "\n";
+            //cout << "SENDER: SetFree callded for node " << id << "\n";
             master::nodes[id]=0;
         }
         
@@ -68,13 +74,12 @@ void master::mainMaster(int argc,char **argv, long id, long p){
                 i++;
             }
             if (i==dimension){
-                cout << "SENDER: GetFree --> "<< 0 << " returned\n"; 
+                //cout << "SENDER: GetFree --> "<< 0 << " returned\n"; 
                 return 0;
             }
             else {
-                cout << "SENDER: GetFree --> "<< i << " returned\n";
+                //cout << "SENDER: GetFree --> "<< i << " returned\n";
                 return i;
             }
         }
         
-    //    else cout << "Unable to open file";

@@ -68,7 +68,9 @@ public:
     static std::string convertFile(std::string name);
     static void ResultDemultiplexing(const int tag, int *id, int *real_tag);
     static int ResultMultiplexing(const int id,const int real_tag);
-            
+    int TobeTaches;
+    std::vector<std::string> dependencies;
+    std::vector<std::string> dependant;
     tache();
 protected:
     static std::vector<std::string> tokenize(const std::string & str, const std::string & delim);
@@ -76,7 +78,7 @@ protected:
     std::vector<tache> subTaches; // n° subTaches
     
     int nTaches; // n° subtaches
-    std::vector<std::string> dependencies;
+    
     long id;
     static long tID;
 

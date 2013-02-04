@@ -15,14 +15,13 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=mpic++
-CXX=mpic++
+CCC=g++
+CXX=g++
 FC=gfortran
 AS=as
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
 CND_CONF=Release
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -61,11 +60,11 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/slave.o: slave.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -103,7 +102,7 @@ ${OBJECTDIR}/Job.o: Job.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mpi
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/distributedmake
 
 # Subprojects
 .clean-subprojects:

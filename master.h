@@ -11,6 +11,8 @@
 # include <string>
 # include <string.h>
 # include <mpi/mpi.h>
+#include <sys/types.h>
+#include <pthread.h>
 #include <vector>
 
 class master {
@@ -25,6 +27,7 @@ public:
     void mainMaster(int argc,char **argv, long id, long p);
     static int dimension;
     static int id;
+//    void* tryTestJobs(void *t);
 private:
     
 };
