@@ -9,6 +9,7 @@
 
 # include "Job/Job.h"
 #include "master.h"
+#include "slave.h"
 
 using namespace std;
 
@@ -300,7 +301,9 @@ void Job::ComputeDependant(){
            cout << p->first << "\n";
             if (tMap->count(*it) == 0 ){
                 p->second->TobeTaches--;
-                if (TobeTaches== 0){
+                if (TobeTaches == 0){
+                    scheduleNewTache(p->second);
+                }
                 continue;
             }        
            tMap->at(*it)->dependant.push_back(p->first);
@@ -354,4 +357,13 @@ void Job::notifyDependant(tache *t){
                Job::scheduleNewTache(tMap->at(*it));
            }
        }
+}
+
+void Job::checkStarters(){
+    map<string,tache*>::iterator it;
+        for(it =tMap->begin(); it != tMap->end(); it++) {
+            if ((*it).second->TobeTaches == 0 ){
+                cout << "I'm ready from the begin!";
+            }
+        }
 }

@@ -42,6 +42,7 @@ public:
     static bool CheckPresenceOnHost(int target_host,std::string file);
     static std::deque<tache*> *tWaiting;
     static std::deque<tache*> *tAvailable;
+    void checkStarters();
 private:
     
 //    std::string init;

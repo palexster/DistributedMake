@@ -44,7 +44,7 @@ void master::mainMaster(int argc,char **argv, long id, long p){
         cout << "all tache are in tWaiting, ready to start\n"; 
         //cout << "available taches are now in tAvailble\n";
         // here available are in tAvailable, others are in tWaiting
-        travail->testJobDeps();
+        //travail->testJobDeps();
         travail->ComputeDependant();
         travail->run(id,p);
         
