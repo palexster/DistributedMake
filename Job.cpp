@@ -207,10 +207,10 @@ bool Job::run(const long id, const long p){
       
        
 //       if(totalReceived < total && totalReceived < nTaches){
-           cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
-           cout << "SENDER: total status: " << total << "\n";
-           cout << "SENDER: totalReceived status: " << totalReceived << "\n";
-           cout << "SENDER: ntaches status: " << this->nTaches << "\n";
+//           cout << "SENDER: tAvailable status: " <<tAvailable->size() << "\n";
+//           cout << "SENDER: total status: " << total << "\n";
+//           cout << "SENDER: totalReceived status: " << totalReceived << "\n";
+//           cout << "SENDER: ntaches status: " << this->nTaches << "\n";
           if (MPI::COMM_WORLD.Iprobe(MPI::ANY_SOURCE,MPI::ANY_TAG,status)){
            int tag = status.Get_tag();
            int source = status.Get_source();
@@ -235,9 +235,9 @@ bool Job::run(const long id, const long p){
                master::SetFree(source);
                free(buff);
            }
-//           if (tAvailable->size() == 0){
-//                this->testJobDeps();
-//           }
+           if (tAvailable->size() == 0){
+                this->testJobDeps();
+           }
 //           
            tache* toRun;
            if ( tAvailable->size() > 0){
@@ -301,15 +301,15 @@ void Job::ComputeDependant(){
        for(it = p->second->dependencies.begin(); it != p->second->dependencies.end(); it++) {
             if (tMap->count(*it) == 0 ){
                 p->second->TobeTaches--;
-                cout << p->first << "\n";
-                cout << "ToBe DIMENSION " << p->second->TobeTaches << "\n";
+//                cout << p->first << "\n";
+//                cout << "ToBe DIMENSION " << p->second->TobeTaches << "\n";
                 if (p->second->TobeTaches == 0){
                     scheduleNewTache(p->second);
                 }
                 continue;
             }        
            tMap->at(*it)->dependant.push_back(p->first);
-           cout << p->first << "é dipendente da" << *it << "\n";
+//           cout << p->first << "é dipendente da" << *it << "\n";
        }
      }
 }
