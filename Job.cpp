@@ -21,6 +21,7 @@ std::deque<tache*> *Job::tWaiting;
 Job::Job() {
     Job::nTaches = 1;
     tMap = new std::map<const std::string, tache*>;
+    tAvailable = new std::deque<tache*>;
     Job::FileCache = new std::map<const int, std::vector<string>* >;
 }
 
@@ -295,13 +296,14 @@ void Job::signalEnd(const long p,const long id){
 void Job::ComputeDependant(){
     map<string, tache*>::iterator p;
     vector<string>::iterator it;
-    cout << "Map DIMENSION " << tMap->size() << "\n";
+   //cout << "Map DIMENSION " << tMap->size() << "\n";
    for(p = tMap->begin(); p != tMap->end(); p++) {
        for(it = p->second->dependencies.begin(); it != p->second->dependencies.end(); it++) {
-           cout << p->first << "\n";
             if (tMap->count(*it) == 0 ){
                 p->second->TobeTaches--;
-                if (TobeTaches == 0){
+                cout << p->first << "\n";
+                cout << "ToBe DIMENSION " << p->second->TobeTaches << "\n";
+                if (p->second->TobeTaches == 0){
                     scheduleNewTache(p->second);
                 }
                 continue;
@@ -363,7 +365,7 @@ void Job::checkStarters(){
     map<string,tache*>::iterator it;
         for(it =tMap->begin(); it != tMap->end(); it++) {
             if ((*it).second->TobeTaches == 0 ){
-                cout << "I'm ready from the begin!";
+                cout << "I'm ready from the begin " << (*it).second->name <<"!\n";
             }
         }
 }
